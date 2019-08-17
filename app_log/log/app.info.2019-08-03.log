@@ -1,0 +1,106 @@
+2019-08-03 11:02:11.823 INFO [restartedMain]com.ziyue.imapi.ImApiApplication.logStarting:50 -Starting ImApiApplication on Lenovo-PC with PID 1028 (D:\javaEE\springboot\im\im-api\target\classes started by Lenovo in D:\javaEE\springboot\im)
+2019-08-03 11:02:11.823 INFO [restartedMain]com.ziyue.imapi.ImApiApplication.logStartupProfileInfo:646 -No active profile set, falling back to default profiles: default
+2019-08-03 11:02:11.901 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-08-03 11:02:11.916 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-08-03 11:02:12.696 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected:244 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-08-03 11:02:12.696 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:126 -Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-08-03 11:02:12.728 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:182 -Finished Spring Data repository scanning in 16ms. Found 0 repository interfaces.
+2019-08-03 11:02:12.743 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected:244 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-08-03 11:02:12.743 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:126 -Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-08-03 11:02:12.759 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:182 -Finished Spring Data repository scanning in 16ms. Found 0 repository interfaces.
+2019-08-03 11:02:12.915 WARN [restartedMain]org.mybatis.spring.mapper.ClassPathMapperScanner.warn:44 -No MyBatis mapper was found in '[com.ziyue.immodel.mapper]' package. Please check your configuration.
+2019-08-03 11:02:13.149 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$6a8d2fdd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-08-03 11:02:13.632 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:90 -Tomcat initialized with port(s): 8080 (http)
+2019-08-03 11:02:13.648 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-08-03 11:02:13.664 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-08-03 11:02:13.664 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-08-03 11:02:13.851 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-08-03 11:02:13.851 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:283 -Root WebApplicationContext: initialization completed in 1935 ms
+2019-08-03 11:02:14.132 WARN [restartedMain]o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext.refresh:557 -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userMessageServiceImpl': Unsatisfied dependency expressed through field 'userMessageDao'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.ziyue.immodel.dao.UserMessageDao' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2019-08-03 11:02:14.147 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Stopping service [Tomcat]
+2019-08-03 11:02:14.475 ERROR[restartedMain]o.s.boot.diagnostics.LoggingFailureAnalysisReporter.report:40 -
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field userMessageDao in com.ziyue.imservice.service.impl.UserMessageServiceImpl required a bean of type 'com.ziyue.immodel.dao.UserMessageDao' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.ziyue.immodel.dao.UserMessageDao' in your configuration.
+
+2019-08-03 11:07:04.126 INFO [restartedMain]com.ziyue.imapi.ImApiApplication.logStarting:50 -Starting ImApiApplication on Lenovo-PC with PID 8356 (D:\javaEE\springboot\im\im-api\target\classes started by Lenovo in D:\javaEE\springboot\im)
+2019-08-03 11:07:04.126 INFO [restartedMain]com.ziyue.imapi.ImApiApplication.logStartupProfileInfo:646 -No active profile set, falling back to default profiles: default
+2019-08-03 11:07:04.251 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-08-03 11:07:04.251 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-08-03 11:07:05.249 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected:244 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-08-03 11:07:05.249 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:126 -Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-08-03 11:07:05.265 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:182 -Finished Spring Data repository scanning in 0ms. Found 0 repository interfaces.
+2019-08-03 11:07:05.280 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected:244 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-08-03 11:07:05.280 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:126 -Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-08-03 11:07:05.296 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:182 -Finished Spring Data repository scanning in 0ms. Found 0 repository interfaces.
+2019-08-03 11:07:05.436 WARN [restartedMain]org.mybatis.spring.mapper.ClassPathMapperScanner.warn:44 -No MyBatis mapper was found in '[com.ziyue.immodel.mapper]' package. Please check your configuration.
+2019-08-03 11:07:05.717 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$37151263] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-08-03 11:07:06.154 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:90 -Tomcat initialized with port(s): 8080 (http)
+2019-08-03 11:07:06.170 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-08-03 11:07:06.170 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-08-03 11:07:06.170 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-08-03 11:07:06.357 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-08-03 11:07:06.357 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:283 -Root WebApplicationContext: initialization completed in 2106 ms
+2019-08-03 11:07:06.622 WARN [restartedMain]o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext.refresh:557 -Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userMessageServiceImpl': Unsatisfied dependency expressed through field 'userMessageDao'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.ziyue.immodel.dao.UserMessageDao' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2019-08-03 11:07:06.638 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Stopping service [Tomcat]
+2019-08-03 11:07:06.856 ERROR[restartedMain]o.s.boot.diagnostics.LoggingFailureAnalysisReporter.report:40 -
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field userMessageDao in com.ziyue.imservice.service.impl.UserMessageServiceImpl required a bean of type 'com.ziyue.immodel.dao.UserMessageDao' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.ziyue.immodel.dao.UserMessageDao' in your configuration.
+
+2019-08-03 11:31:14.645 INFO [restartedMain]com.ziyue.imapi.ImApiApplication.logStarting:50 -Starting ImApiApplication on Lenovo-PC with PID 8688 (D:\javaEE\springboot\im\im-api\target\classes started by Lenovo in D:\javaEE\springboot\im)
+2019-08-03 11:31:14.645 INFO [restartedMain]com.ziyue.imapi.ImApiApplication.logStartupProfileInfo:646 -No active profile set, falling back to default profiles: default
+2019-08-03 11:31:14.707 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-08-03 11:31:14.707 INFO [restartedMain]o.s.b.devtools.env.DevToolsPropertyDefaultsPostProcessor.logTo:225 -For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-08-03 11:31:16.111 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected:244 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-08-03 11:31:16.111 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:126 -Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-08-03 11:31:16.143 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:182 -Finished Spring Data repository scanning in 0ms. Found 0 repository interfaces.
+2019-08-03 11:31:16.158 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected:244 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-08-03 11:31:16.174 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:126 -Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-08-03 11:31:16.189 INFO [restartedMain]o.s.d.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn:182 -Finished Spring Data repository scanning in 15ms. Found 0 repository interfaces.
+2019-08-03 11:31:16.330 WARN [restartedMain]org.mybatis.spring.mapper.ClassPathMapperScanner.warn:44 -No MyBatis mapper was found in '[com.ziyue.immodel.mapper]' package. Please check your configuration.
+2019-08-03 11:31:16.564 INFO [restartedMain]o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker.postProcessAfterInitialization:330 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c6d60987] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-08-03 11:31:17.032 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.initialize:90 -Tomcat initialized with port(s): 8080 (http)
+2019-08-03 11:31:17.047 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Initializing ProtocolHandler ["http-nio-8080"]
+2019-08-03 11:31:17.047 INFO [restartedMain]org.apache.catalina.core.StandardService.log:173 -Starting service [Tomcat]
+2019-08-03 11:31:17.047 INFO [restartedMain]org.apache.catalina.core.StandardEngine.log:173 -Starting Servlet engine: [Apache Tomcat/9.0.21]
+2019-08-03 11:31:17.250 INFO [restartedMain]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring embedded WebApplicationContext
+2019-08-03 11:31:17.250 INFO [restartedMain]org.springframework.web.context.ContextLoader.prepareWebApplicationContext:283 -Root WebApplicationContext: initialization completed in 2543 ms
+2019-08-03 11:31:17.812 INFO [restartedMain]o.s.scheduling.concurrent.ThreadPoolTaskExecutor.initialize:171 -Initializing ExecutorService 'applicationTaskExecutor'
+2019-08-03 11:31:17.983 INFO [restartedMain]o.s.b.a.web.servlet.WelcomePageHandlerMapping.<init>:58 -Adding welcome page template: index
+2019-08-03 11:31:18.514 INFO [restartedMain]o.s.boot.devtools.autoconfigure.OptionalLiveReloadServer.startServer:57 -LiveReload server is running on port 35729
+2019-08-03 11:31:18.654 INFO [restartedMain]com.ziyue.imservice.ImServer.init:60 -start qiqiim server ...
+2019-08-03 11:31:18.654 INFO [restartedMain]com.ziyue.imservice.ImServer.init:83 -start qiqiim server at port[0].
+2019-08-03 11:31:18.873 INFO [nioEventLoopGroup-4-1]com.ziyue.imservice.ImServer.operationComplete:89 -Server have success bind to 0
+2019-08-03 11:31:18.873 INFO [restartedMain]org.apache.coyote.http11.Http11NioProtocol.log:173 -Starting ProtocolHandler ["http-nio-8080"]
+2019-08-03 11:31:18.888 INFO [restartedMain]o.s.boot.web.embedded.tomcat.TomcatWebServer.start:202 -Tomcat started on port(s): 8080 (http) with context path ''
+2019-08-03 11:31:18.888 INFO [restartedMain]com.ziyue.imapi.ImApiApplication.logStarted:59 -Started ImApiApplication in 5.351 seconds (JVM running for 6.233)
+2019-08-03 11:32:12.085 INFO [http-nio-8080-exec-1]o.a.catalina.core.ContainerBase.[Tomcat].[localhost].[/].log:173 -Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-08-03 11:32:12.085 INFO [http-nio-8080-exec-1]org.springframework.web.servlet.DispatcherServlet.initServletBean:524 -Initializing Servlet 'dispatcherServlet'
+2019-08-03 11:32:12.101 INFO [http-nio-8080-exec-1]org.springframework.web.servlet.DispatcherServlet.initServletBean:546 -Completed initialization in 16 ms
