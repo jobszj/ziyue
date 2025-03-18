@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>脚本</title>
+    {% include 'system/common/header.html' %}
+</head>
+<body class="pear-container">
+    <div class="layui-card">
+        <input type="text" id="script-prompt" placeholder="输入文字提示词">
+        <button id="generate-script">生成口播文案</button>
+        <table id="script-table">
+            <thead>
+                <tr>
+                    <th>分镜</th>
+                    <th>文案</th>
+                    <th>录音方式</th>
+                    <th>拍摄方式</th>
+                    <th>时长</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+{% include 'system/common/footer.html' %}
+<script>
+    // 脚本生成功能
+    const generateScriptButton = document.getElementById('generate-script');
+    const scriptTable = document.getElementById('script-table');
+    generateScriptButton.addEventListener('click', () => {
+        const prompt = document.getElementById('script-prompt').value;
+        // 模拟调用扣子工作流返回数据
+        const mockData = {
+            shot: '分镜 1',
+            copywriting: '这是一段口播文案',
+            recording: '录音方式 1',
+            shooting: '拍摄方式 1',
+            duration: '0:30'
+        };
+        const row = scriptTable.insertRow();
+        const cells = [
+            mockData.shot,
+            mockData.copywriting,
+            mockData.recording,
+            mockData.shooting,
+            mockData.duration
+        ];
+        cells.forEach(cellData => {
+            const cell = row.insertCell();
+            cell.textContent = cellData;
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>脚本</title>
+    {% include 'system/common/header.html' %}
+</head>
+<body class="pear-container">
+  <div class="layui-container">
+    <form class="layui-form">
+      <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+          <div class="layui-form-item">
+            <label class="layui-form-label">描述:</label>
+            <div class="layui-input-block">
+              <input type="text" name="description" placeholder="请输入描述" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">数量:</label>
+            <div class="layui-input-inline">
+              <input type="number" name="quantity" placeholder="请输入数量" class="layui-input">
+            </div>
+            <span class="layui-form-mid layui-word-aux">张</span>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">模型:</label>
+            <div class="layui-input-block">
+              <select name="model">
+                <option value="SD3.5 large turbo">SD3.5 large turbo</option>
+                <option value="midjunery">midjunery</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">变体:</label>
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn layui-btn-sm">V1</button>
+              <button type="button" class="layui-btn layui-btn-sm">V2</button>
+              <button type="button" class="layui-btn layui-btn-sm">V3</button>
+              <button type="button" class="layui-btn layui-btn-sm">V4</button>
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">放大:</label>
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn layui-btn-sm">U1</button>
+              <button type="button" class="layui-btn layui-btn-sm">U2</button>
+              <button type="button" class="layui-btn layui-btn-sm">U3</button>
+              <button type="button" class="layui-btn layui-btn-sm">U4</button>
+            </div>
+          </div>
+        </div>
+        <div class="layui-col-md6">
+          <div class="layui-form-item">
+            <label class="layui-form-label">图片:</label>
+            <div class="layui-input-block upload-img-box">
+                上传商品图
+                <input type="file" class="layui-upload-file" id="uploadInput">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="button" class="layui-btn" lay-submit lay-filter="generate">生成</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            <i class="layui-icon layui-icon-upload"></i>
+          </div>
+          <div class="layui-card-body" style="height: 150px; text-align: center; line-height: 150px; border: 1px solid #ccc;">
+            <img src="" alt="" style="max-width: 100%; max-height: 100%;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{% include 'system/common/footer.html' %}
+<script>
+    layui.use(['form'], function () {
+      var form = layui.form;
+      // 监听文件上传
+      document.getElementById('uploadBox').addEventListener('click', function () {
+        document.getElementById('uploadInput').click();
+      });
+      document.getElementById('uploadInput').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (event) {
+            document.getElementById('previewImg1').src = event.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      // 在这里可以添加生成按钮的提交逻辑
+      form.on('submit(generate)', function (data) {
+        console.log(data.field);
+        return false;
+      });
+    });
+</script>
+</html>
