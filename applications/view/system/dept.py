@@ -6,7 +6,7 @@ from applications.common.utils import validate
 from applications.common.utils.http import success_api, fail_api
 from applications.common.utils.rights import authorize
 from applications.common.utils.validate import str_escape
-from applications.extensions import db
+from applications.init import db
 from applications.models import Dept, User
 from applications.schemas import DeptSchema
 

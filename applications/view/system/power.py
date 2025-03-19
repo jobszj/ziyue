@@ -4,7 +4,7 @@ from applications.common import curd
 from applications.common.utils.http import success_api, fail_api
 from applications.common.utils.rights import authorize
 from applications.common.utils.validate import str_escape
-from applications.extensions import db
+from applications.init import db
 from applications.models import Power
 from applications.schemas import PowerOutSchema2
 from applications.schemas.admin_power import PowerSchema

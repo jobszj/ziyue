@@ -1,6 +1,6 @@
 from sqlalchemy import and_
 
-from applications.extensions import db
+from applications.init import db
 
 
 class ModelFilter:

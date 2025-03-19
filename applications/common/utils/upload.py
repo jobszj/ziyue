@@ -1,8 +1,8 @@
 import os
 from flask import current_app
 from sqlalchemy import desc
-from applications.extensions import db
-from applications.extensions.init_upload import photos
+from applications.init import db
+from applications.init.init_upload import photos
 from applications.models import Photo
 from applications.schemas import PhotoOutSchema
 from applications.common.curd import model_to_dicts

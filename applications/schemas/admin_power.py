@@ -1,6 +1,6 @@
 from flask_marshmallow.sqla import SQLAlchemyAutoSchema
 
-from applications.extensions import ma
+from applications.init import ma
 from marshmallow import fields
 
 from applications.models import Power

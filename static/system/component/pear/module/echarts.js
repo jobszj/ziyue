@@ -8678,7 +8678,7 @@
     /**
      * Implements `CheckableConstructor` for `target`.
      * Can not use instanceof, consider different scope by
-     * cross domain or es module import in ec extensions.
+     * cross domain or es module import in ec init.
      * Mount a method "isInstance()" to Clz.
      *
      * @usage
@@ -25770,7 +25770,7 @@
       return context.data.count();
     }
     /**
-     * Only some legacy stage handlers (usually in echarts extensions) are pure function.
+     * Only some legacy stage handlers (usually in echarts init) are pure function.
      * To ensure that they can work normally, they should work in block mode, that is,
      * they should not be started util the previous tasks finished. So they cause the
      * progressive rendering disabled. We try to detect the series type, to narrow down
@@ -32942,7 +32942,7 @@
         // It may make sense if the user provides elaborately constructed data.
         byIndex = true;
       } // Add stack dimension, they can be both calculated by coordinate system in `unionExtent`.
-      // That put stack logic in List is for using conveniently in echarts extensions, but it
+      // That put stack logic in List is for using conveniently in echarts init, but it
       // might not be a good way.
 
 
@@ -33431,7 +33431,7 @@
 
         _this.type = 'ordinal';
 
-        var ordinalMeta = _this.getSetting('ordinalMeta'); // Caution: Should not use instanceof, consider ec-extensions using
+        var ordinalMeta = _this.getSetting('ordinalMeta'); // Caution: Should not use instanceof, consider ec-init using
         // import approach to get OrdinalMeta class.
 
 

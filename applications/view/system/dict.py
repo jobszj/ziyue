@@ -5,7 +5,7 @@ from applications.common.helper import ModelFilter
 from applications.common.utils.http import table_api, success_api, fail_api
 from applications.common.utils.rights import authorize
 from applications.common.utils.validate import str_escape
-from applications.extensions import db
+from applications.init import db
 from applications.models import DictType, DictData
 from applications.schemas import DictTypeOutSchema, DictDataOutSchema
 

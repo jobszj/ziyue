@@ -1,5 +1,5 @@
 import datetime
-from applications.extensions import db
+from applications.init import db
 
 class AdminLog(db.Model):
     __tablename__ = 'admin_admin_log'

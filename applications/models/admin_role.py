@@ -1,5 +1,5 @@
 import datetime
-from applications.extensions import db
+from applications.init import db
 
 
 class Role(db.Model):

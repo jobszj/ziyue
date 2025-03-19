@@ -1,4 +1,4 @@
-from applications.extensions import ma
+from applications.init import ma
 from marshmallow import fields
 
 

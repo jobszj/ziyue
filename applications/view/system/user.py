@@ -7,7 +7,7 @@ from applications.common.curd import enable_status, disable_status
 from applications.common.utils.http import table_api, fail_api, success_api
 from applications.common.utils.rights import authorize
 from applications.common.utils.validate import str_escape
-from applications.extensions import db
+from applications.init import db
 from applications.models import Role, Dept
 from applications.models import User, AdminLog
 

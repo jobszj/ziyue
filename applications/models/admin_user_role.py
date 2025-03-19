@@ -1,4 +1,4 @@
-from applications.extensions import db
+from applications.init import db
 
 # 创建中间表
 user_role = db.Table(

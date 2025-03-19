@@ -6,7 +6,7 @@ from applications.common.helper import ModelFilter
 from applications.common.utils.http import table_api, fail_api, success_api
 from applications.common.utils.rights import authorize
 from applications.common.utils.validate import str_escape
-from applications.extensions import db, flask_mail
+from applications.init import db, flask_mail
 from applications.models import Mail
 from applications.schemas import MailOutSchema
 

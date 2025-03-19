@@ -1,7 +1,7 @@
 from flask_login import current_user
 
 from applications.common.utils.validate import str_escape
-from applications.extensions import db
+from applications.init import db
 from applications.models import AdminLog
 
 

@@ -1,6 +1,6 @@
 from flask import Flask
 
-from applications.extensions.init_sqlalchemy import db
+from applications.init.init_sqlalchemy import db
 from flask_migrate import Migrate
 from applications.models import *
 

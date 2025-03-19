@@ -10,7 +10,7 @@ folder_name = dir_path[dir_path.rfind("/") + 1:]  # 插件文件夹名称
 
 def event_init(app: Flask):
     """初始化完成时会调用这里"""
-    # 使用下面的代码 查看所有注册的视图函数。对于 Flask app.route 函数的实现，请参考 https://www.jianshu.com/p/dff3bc2f4836
+    # 使用下面的代码 查看所有注册的视图函数。对于 Flask app.api 函数的实现，请参考 https://www.jianshu.com/p/dff3bc2f4836
     # print(app.view_functions)
     
     # 定义新视图函数

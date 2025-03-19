@@ -897,7 +897,7 @@ _p[0] = {
                     if (this.hasValue()) return this.numValue();
                     return def;
                 };
-                // color extensions
+                // color init
                 // augment the current color value with the opacity
                 svg.Property.prototype.addOpacity = function(opacity) {
                     var newValue = this.value;
@@ -910,7 +910,7 @@ _p[0] = {
                     }
                     return new svg.Property(this.name, newValue);
                 };
-                // definition extensions
+                // definition init
                 // get the definition from the definitions table
                 svg.Property.prototype.getDefinition = function() {
                     var name = this.value.match(/#([^\)'"]+)/);
@@ -944,7 +944,7 @@ _p[0] = {
                     }
                     return null;
                 };
-                // length extensions
+                // length init
                 svg.Property.prototype.getDPI = function(viewPort) {
                     return 96;
                 };
@@ -975,7 +975,7 @@ _p[0] = {
                     if (processPercent && n < 1) return n * svg.ViewPort.ComputeSize(viewPort);
                     return n;
                 };
-                // time extensions
+                // time init
                 // get the time as milliseconds
                 svg.Property.prototype.toMilliseconds = function() {
                     if (!this.hasValue()) return 0;
@@ -984,7 +984,7 @@ _p[0] = {
                     if (s.match(/ms$/)) return this.numValue();
                     return this.numValue();
                 };
-                // angle extensions
+                // angle init
                 // get the angle as radians
                 svg.Property.prototype.toRadians = function() {
                     if (!this.hasValue()) return 0;

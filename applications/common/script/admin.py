@@ -2,7 +2,7 @@ import datetime
 
 from flask.cli import AppGroup
 
-from applications.extensions import db
+from applications.init import db
 from applications.models import User, Role, Dept, Power
 
 admin_cli = AppGroup("admin")

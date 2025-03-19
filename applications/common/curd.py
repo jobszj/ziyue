@@ -3,7 +3,7 @@ import datetime
 from marshmallow import Schema
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
-from applications.extensions import db, ma
+from applications.init import db, ma
 
 
 class LogicalDeleteMixin(object):

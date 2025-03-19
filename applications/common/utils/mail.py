@@ -6,8 +6,8 @@ from flask_mail import Message
 
 from applications.common.curd import model_to_dicts
 from applications.common.helper import ModelFilter
-from applications.extensions import db, flask_mail
-from applications.extensions.init_mail import mail
+from applications.init import db, flask_mail
+from applications.init.init_mail import mail
 from applications.models import Mail
 from applications.schemas import MailOutSchema
 
