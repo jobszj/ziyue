@@ -55,7 +55,10 @@
             <label class="layui-form-label">上传图片</label>
             <div class="layui-input-block">
                 <button type="button" class="layui-btn" id="upload-btn">选择图片</button>
-                <div id="preview" style="margin-top: 10px;"></div>
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="pre-image" style="width: 200px;height: 200px;">
+                    <p id="demoText"></p>
+                </div>
             </div>
           </div>
           <div class="layui-form-item">
@@ -83,24 +86,22 @@
 {% include 'system/common/footer.html' %}
 <script>
     layui.use(['form', 'upload'], function () {
+        var $ = layui.jquery;
         var form = layui.form;
         var upload = layui.upload;
-        console.log("调用的接口", url_for('system.adminFile.upload_api'))
         // 执行上传实例
         upload.render({
             elem: '#upload-btn',
-            url: "",
+            url: "{{ url_for('system.adminFile.upload_api') }}",
+            exts: "jpg|png|gif|bmp|jpeg",
+            size: 1000,
             method: 'post',
             done: function (res) {
                 // 上传成功后的回调
                 if (res.code === 0) {
                     // 假设返回的图片路径在 res.data.src 中
                     var imgUrl = res.data.src;
-                    var img = document.createElement('img');
-                    img.src = imgUrl;
-                    img.style.maxWidth = '100%';
-                    console.log("获取的图片地址", imgUrl);
-                    document.getElementById('preview').appendChild(img);
+                    $('#pre-image').attr('src', imgUrl); // 图片链接（base64）
                 } else {
                     layer.msg(res.msg);
                 }
@@ -109,26 +110,6 @@
                 // 上传失败的回调
                 layer.msg('上传失败');
             }
-        });
-
-        // 监听文件上传
-        document.getElementById('uploadBox').addEventListener('click', function () {
-        document.getElementById('uploadInput').click();
-        });
-        document.getElementById('uploadInput').addEventListener('change', function (e) {
-        var file = e.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function (event) {
-            document.getElementById('previewImg1').src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-        });
-        // 在这里可以添加生成按钮的提交逻辑
-        form.on('submit(generate)', function (data) {
-        console.log(data.field);
-        return false;
         });
     });
 </script>

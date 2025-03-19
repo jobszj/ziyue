@@ -21,10 +21,12 @@ class BaseConfig:
 
     # mysql 配置
     MYSQL_USERNAME = "root"
-    MYSQL_PASSWORD = "123456"
+    #window的密码是19880801,数据库是mini,mac的是123456数据库是magic
+    #MYSQL_PASSWORD = "123456"
+    MYSQL_PASSWORD = "19880801"
     MYSQL_HOST = "127.0.0.1"
     MYSQL_PORT = 3306
-    MYSQL_DATABASE = "magic"
+    MYSQL_DATABASE = "mini"
 
     # 数据库的配置信息
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{MYSQL_USERNAME}:{urlquote(MYSQL_PASSWORD)}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DATABASE}?charset=utf8mb4"
