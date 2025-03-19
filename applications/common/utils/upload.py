@@ -17,7 +17,7 @@ def get_photo(page, limit):
 
 def upload_one(photo, mime):
     filename = photos.save(photo)
-    file_url = '/_uploads/photos/'+filename
+    file_url = '/static/upload/'+filename
     # file_url = photos.url(filename)
     upload_url = current_app.config.get("UPLOADED_PHOTOS_DEST")
     size = os.path.getsize(upload_url + '/' + filename)

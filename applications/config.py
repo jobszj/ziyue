@@ -6,7 +6,6 @@ from urllib.parse import quote_plus as urlquote
 
 class BaseConfig:
     SUPERADMIN = 'admin'
-
     SYSTEM_NAME = 'Admin'
     # 主题面板的链接列表配置
     SYSTEM_PANEL_LINKS = [
@@ -18,7 +17,6 @@ class BaseConfig:
 
     # JSON配置
     JSON_AS_ASCII = False
-
     SECRET_KEY = "magic_20250316"
 
     # mysql 配置
