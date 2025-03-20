@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
+from applications.common.utils.http import success_api
 from applications.common.utils.rights import authorize
 from flask_login import current_user
+from applications.common.utils.validate import str_escape
 
 bp = Blueprint('image', __name__, url_prefix='/image')
 # 脚本生成
@@ -9,10 +11,9 @@ bp = Blueprint('image', __name__, url_prefix='/image')
 def main():
     return render_template('magic/image.html')
 
-
 # 生成图片表单提交功能接口
-@api_bp.route('/generate', methods=['POST'])
-@authorize("magic:image:add", log=True)
+@bp.route('/generate', methods=['POST'])
+# @authorize("magic:image:add", log=True)
 def generate_images():
     user = current_user
     req_json = request.get_json(force=True)
