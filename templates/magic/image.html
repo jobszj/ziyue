@@ -12,7 +12,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">描述:</label>
             <div class="layui-input-block">
-              <input type="text" name="description" placeholder="请输入描述" class="layui-input">
+              <input type="text" name="prompt" placeholder="请输入描述" class="layui-input">
             </div>
           </div>
           <div class="layui-form-item">
@@ -25,28 +25,28 @@
           <div class="layui-form-item">
             <label class="layui-form-label">模型:</label>
             <div class="layui-input-block">
-              <select name="model">
+              <select name="model" lay-filter="typeSelect">
                 <option value="SD3.5 large turbo">SD3.5 large turbo</option>
                 <option value="midjunery">midjunery</option>
               </select>
             </div>
           </div>
-          <div class="layui-form-item">
+          <div class="layui-form-item option1-field"  style="display: none;">
             <label class="layui-form-label">变体:</label>
             <div class="layui-input-block">
-              <button type="button" class="layui-btn layui-btn-sm">V1</button>
-              <button type="button" class="layui-btn layui-btn-sm">V2</button>
-              <button type="button" class="layui-btn layui-btn-sm">V3</button>
-              <button type="button" class="layui-btn layui-btn-sm">V4</button>
+                <input type="checkbox" name="v" title="V1" value="v1" lay-skin="primary">
+                <input type="checkbox" name="v" title="V2" value="v2" lay-skin="primary">
+                <input type="checkbox" name="v" title="V3" value="v3" lay-skin="primary">
+                <input type="checkbox" name="v" title="V4" value="v4" lay-skin="primary">
             </div>
           </div>
-          <div class="layui-form-item">
+          <div class="layui-form-item option2-field"  style="display: none;">
             <label class="layui-form-label">放大:</label>
             <div class="layui-input-block">
-              <button type="button" class="layui-btn layui-btn-sm">U1</button>
-              <button type="button" class="layui-btn layui-btn-sm">U2</button>
-              <button type="button" class="layui-btn layui-btn-sm">U3</button>
-              <button type="button" class="layui-btn layui-btn-sm">U4</button>
+                <input type="checkbox" name="u" title="U1" value="u1" lay-skin="primary">
+                <input type="checkbox" name="u" title="U2" value="u2" lay-skin="primary">
+                <input type="checkbox" name="u" title="U3" value="u3" lay-skin="primary">
+                <input type="checkbox" name="u" title="U4" value="u4" lay-skin="primary">
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
                 <button type="button" class="layui-btn" id="upload-btn">选择图片</button>
                 <div class="layui-upload-list">
                     <img class="layui-upload-img" id="pre-image" style="width: 200px;height: 200px;">
-                    <p id="demoText"></p>
+                    <input type="hidden" name="imageUrl" id="imageUrlInput">
                 </div>
             </div>
           </div>
@@ -89,6 +89,18 @@
         var $ = layui.jquery;
         var form = layui.form;
         var upload = layui.upload;
+        // 监听下拉选择时间
+        // 监听下拉框选择事件
+        form.on('select(typeSelect)', function (data) {
+            var value = data.value;
+            // 隐藏所有相关字段
+            $('.option1-field, .option2-field').hide();
+            if (value === 'midjunery') {
+                $('.option1-field').show();
+                $('.option2-field').show();
+            }
+        });
+
         // 执行上传实例
         upload.render({
             elem: '#upload-btn',
@@ -102,6 +114,7 @@
                     // 假设返回的图片路径在 res.data.src 中
                     var imgUrl = res.data.src;
                     $('#pre-image').attr('src', imgUrl); // 图片链接（base64）
+                    $('#imageUrlInput').val(imgUrl);
                 } else {
                     layer.msg(res.msg);
                 }
@@ -111,6 +124,39 @@
                 layer.msg('上传失败');
             }
         });
+
+        // 表单提交
+        // 监听表单提交事件
+        form.on('submit(generate)', function (data) {
+            // 处理多选框的值1V2U
+            var multiSelect1Values = [];
+            $('input[name="v"]:checked').each(function () {
+                multiSelect1Values.push($(this).val());
+            });
+            data.field.v = multiSelect1Values;
+
+            var multiSelect2Values = [];
+            $('input[name="u"]:checked').each(function () {
+                multiSelect2Values.push($(this).val());
+            });
+            data.field.u = multiSelect2Values;
+            console.log(data.field);
+            // 这里可以添加 AJAX 请求将数据提交到后端
+            $.ajax({
+                url: 'your_submit_api_url',
+                type: 'POST',
+                data: data.field,
+                success: function (res) {
+                    layer.msg(res.msg);
+                },
+                error: function () {
+                    layer.msg('表单提交失败，请检查网络或接口');
+                }
+            });
+            return false;
+        });
+
+        form.render();
     });
 </script>
 </html>
