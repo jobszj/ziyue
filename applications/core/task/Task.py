@@ -1,30 +1,47 @@
-import json
-
 from flask import current_app
-from redis import Redis
+import redis
+import hashlib
 
-class Task:
-    def __init__(self, queue_name):
-        self.queue_name = queue_name
-        self.redis_client = Redis.from_url(current_app.config['REDIS_URL'])
 
-    def enqueue(self, task):
-        """将任务放入队列"""
-        task_json = json.dumps(task)
-        with current_app.app_context():
-            self.redis_client.rpush(self.queue_name, task_json)
 
-    def dequeue(self):
-        """从队列中取出任务"""
-        with current_app.app_context():
-            task_json = self.redis_client.lpop(self.queue_name)
-        if task_json:
-            return json.loads(task_json)
-        return None
+# 定义任务状态
+TASK_STATUS_PENDING = 'pending'
+TASK_STATUS_PROCESSING = 'processing'
+TASK_STATUS_COMPLETED = 'completed'
 
-    def remove_task(self, task):
-        """从队列中移除任务"""
-        task_json = json.dumps(task)
-        with current_app.app_context():
-            self.redis_client.lrem(self.queue_name, 0, task_json)
 
+def get_redis_client():
+    return Redis.from_url(current_app.config['REDIS_URL'])
+
+
+def add_task_to_queue(user_id, task):
+    redis_client = get_redis_client()
+    # 计算任务的哈希值
+    task_hash = hashlib.sha256(str(task).encode()).hexdigest()
+    # 检查任务是否已存在
+    if redis_client.sadd('image_task', task_hash):
+        # 任务不存在，添加到队列
+        redis_client.rpush(user_id, task)
+        # 初始化任务状态为 pending
+        redis_client.hset('task_status', task_hash, TASK_STATUS_PENDING)
+        return True
+    return False
+
+
+def get_next_task():
+    redis_client = get_redis_client()
+    task = redis_client.lpop('image_task')
+    if task:
+        task = task.decode()
+        task_hash = hashlib.sha256(str(task).encode()).hexdigest()
+        # 更新任务状态为 processing
+        redis_client.hset('task_status', task_hash, TASK_STATUS_PROCESSING)
+        return task
+    return None
+
+
+def mark_task_completed(task):
+    redis_client = get_redis_client()
+    task_hash = hashlib.sha256(str(task).encode()).hexdigest()
+    # 更新任务状态为 completed
+    redis_client.hset('task_status', task_hash, TASK_STATUS_COMPLETED)

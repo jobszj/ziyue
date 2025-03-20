@@ -26,8 +26,8 @@
             <label class="layui-form-label">模型:</label>
             <div class="layui-input-block">
               <select name="model" lay-filter="typeSelect">
-                <option value="SD3.5 large turbo">SD3.5 large turbo</option>
-                <option value="midjunery">midjunery</option>
+                <option value="SD">SD3.5 large turbo</option>
+                <option value="MD">midjunery</option>
               </select>
             </div>
           </div>
@@ -143,7 +143,7 @@
             console.log(data.field);
             // 这里可以添加 AJAX 请求将数据提交到后端
             $.ajax({
-                url: 'your_submit_api_url',
+                url: '/magic/image/generate',
                 type: 'POST',
                 data: data.field,
                 success: function (res) {
