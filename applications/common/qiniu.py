@@ -14,12 +14,15 @@ q = Auth(access_key, secret_key)
 #生成上传 Token，可以指定过期时间等
 token = q.upload_token(bucket_name)
 
-def upload_image_to_qiniu(base64_data):
+def upload_image_to_qiniu(base64_data, type = 'g'):
     random_filename = f"{uuid.uuid4().hex}.png"
     # 获取当前日期
     current_date = datetime.now().strftime('%Y/%m/%d')
     # 生成上传路径
-    key = f'magic/sdlt/{current_date}/{random_filename}'
+    if type == 'g':
+        key = f'magic/sdlt/{current_date}/{random_filename}'
+    else:
+        key = f'magic/upload/{current_date}/{random_filename}'
     # 生成上传 Token，可以指定过期时间等
     token = q.upload_token(bucket_name, key, 3600)
     # 创建临时文件

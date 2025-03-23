@@ -95,9 +95,8 @@
         var $ = layui.jquery;
         var form = layui.form;
         var upload = layui.upload;
-
         var submitBtn = document.querySelector('button[lay-submit][lay-filter="generate"]');
-        // 监听下拉选择时间
+
         // 监听下拉框选择事件
         form.on('select(typeSelect)', function (data) {
             var value = data.value;
@@ -112,7 +111,7 @@
         // 执行上传实例
         upload.render({
             elem: '#upload-btn',
-            url: "{{ url_for('system.adminFile.upload_api') }}",
+            url: "{{ url_for('system.adminFile.upload_qiniu_api') }}",
             exts: "jpg|png|gif|bmp|jpeg",
             size: 1000,
             method: 'post',

@@ -1,6 +1,7 @@
 import os
 from flask import Blueprint, request, render_template, jsonify, current_app
 
+from applications.common.qiniu import upload_image_to_qiniu
 from applications.common.utils.http import fail_api, success_api, table_api
 from applications.common.utils.rights import authorize
 from applications.init import db
@@ -43,6 +44,26 @@ def upload_api():
         mime = request.files['file'].content_type
 
         file_url = upload_curd.upload_one(photo=photo, mime=mime)
+        res = {
+            "msg": "上传成功",
+            "code": 0,
+            "success": True,
+            "data":
+                {"src": file_url}
+        }
+        return jsonify(res)
+    return fail_api()
+
+
+@bp.post('/uploadqn')
+@authorize("system:file:add", log=True)
+def upload_qiniu_api():
+    if 'file' in request.files:
+        photo = request.files['file']
+
+        # 将图片转换成base64然后上传到七牛云
+        photo_data = photo.read()
+        file_url = upload_image_to_qiniu(photo_data, 'u')
         res = {
             "msg": "上传成功",
             "code": 0,
