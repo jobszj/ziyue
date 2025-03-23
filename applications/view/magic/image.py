@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request
-from applications.common.utils.http import success_api
+from applications.common.utils.http import success_api, fail_api, table_api
 from applications.common.utils.rights import authorize
 from flask_login import current_user
 from applications.common.utils.validate import str_escape
+from applications.core.sdlt.sdlt import image_sdlt
+from applications.core.task.task import add_task_to_queue
 
 bp = Blueprint('image', __name__, url_prefix='/image')
 # 脚本生成
@@ -13,21 +15,15 @@ def main():
 
 # 生成图片表单提交功能接口
 @bp.route('/generate', methods=['POST'])
-# @authorize("magic:image:add", log=True)
+@authorize("magic:image:add", log=True)
 def generate_images():
-    user = current_user
     req_json = request.get_json(force=True)
-    prompt = str_escape(req_json.get('prompt'))
-    quantity = str_escape(req_json.get('quantity'))
-    model = str_escape(req_json.get('model'))
-    imageUrl = str_escape(req_json.get('imageUrl'))
-    v = req_json.get('v')
-    u = req_json.get('u')
-    print(prompt, quantity, model, imageUrl, v, u, user)
-    # 优化提示词
-    # 创建任务将任务存储在Redis中，并调用算法服务
-    # 返回任务ID
+    print(req_json)
+    # 优化提示词，等图片服务搭建好之后再优化
+    # 创建任务将任务存储在Redis中，并调用算法服务，一次提交一个任务
+    # if(add_task_to_queue(req_json)):
+        # 调用算法服务生成图片
+    result = image_sdlt(req_json)
+    print("生成的图片地址", result)
+    return table_api(msg="生成图片成功", data={"src": result})
 
-    # 向前端返回结果
-
-    return success_api(msg="提交任务成功，图片生成中")

@@ -20,7 +20,7 @@ def add_task_to_queue(task):
         # 任务不存在，添加到队列
         redis_client.rpush("image_queue", task)
         # 初始化任务状态为 pending
-        redis_client.hset('task_status', task_hash, TASK_STATUS_PENDING)
+        redis_client.hset('task_status', task_hash, TASK_STATUS_PROCESSING)
         return True
     return False
 

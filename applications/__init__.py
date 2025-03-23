@@ -3,7 +3,6 @@ from flask import Flask
 from applications.common.script import init_script
 from applications.config import BaseConfig
 from applications.init import init_plugs
-from applications.api import init_api_bps
 from applications.view import init_bps
 
 
@@ -17,7 +16,6 @@ def create_app():
 
     # 注册蓝图,注册api蓝图
     init_bps(app)
-    init_api_bps(app)
 
     # 注册命令
     init_script(app)
