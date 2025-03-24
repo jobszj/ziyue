@@ -28,7 +28,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">数量:</label>
             <div class="layui-input-inline">
-              <input type="number" name="quantity" placeholder="请输入数量" class="layui-input">
+              <input type="number" name="quantity" lay-verify="integer" placeholder="请输入数量" class="layui-input">
             </div>
             <span class="layui-form-mid layui-word-aux">张</span>
           </div>
@@ -100,6 +100,15 @@
         var form = layui.form;
         var upload = layui.upload;
         var submitBtn = document.querySelector('button[lay-submit][lay-filter="generate"]');
+
+        // 自定义验证规则
+        form.verify({
+            integer: function (value) {
+                if (!/^\d+$/.test(value)) {
+                    return '请输入整数';
+                }
+            }
+        });
 
         // 监听下拉框选择事件
         form.on('select(typeSelect)', function (data) {
