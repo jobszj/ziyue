@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from applications.common.script import init_script
+from applications.init.script import init_script
 from applications.config import BaseConfig
 from applications.init import init_plugs
 from applications.view import init_bps

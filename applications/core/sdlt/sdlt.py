@@ -8,8 +8,8 @@ from applications.common.qiniu import upload_image_to_qiniu
 from applications.common.utils.http import success_api, fail_api, table_api
 
 # 第三方接口的URL
-LOCAL_API_URL = 'http://127.0.0.1:7860/sdapi/v1/txt2img'
-TENCENT_API_URL = 'http://119.91.238.87/sdapi/v1'
+LOCAL_API_URL = 'http://127.0.0.1:7860/sdapi/v1/'
+TENCENT_API_URL = 'http://119.91.238.87/sdapi/v1/'
 
 def image_sdlt(args):
     prompt = args.get('prompt')
