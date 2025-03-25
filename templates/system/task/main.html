@@ -13,7 +13,7 @@
 </body>
 
 <script type="text/html" id="role-toolbar">
-    {% if authorize("system:task:add") %}
+    {% if authorize("system:rediss:add") %}
         <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
             <i class="layui-icon layui-icon-add-1"></i>
             新增
@@ -22,12 +22,12 @@
 </script>
 
 <script type="text/html" id="role-bar">
-    {% if authorize("system:task:edit") %}
+    {% if authorize("system:rediss:edit") %}
         <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i
                 class="layui-icon layui-icon-edit"></i>
         </button>
     {% endif %}
-    {% if authorize("system:task:remove") %}
+    {% if authorize("system:rediss:remove") %}
         <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i
                 class="layui-icon layui-icon-delete"></i>
         </button>
@@ -50,7 +50,7 @@
     let $ = layui.jquery
     let popup = layui.popup
 
-    let MODULE_PATH = '/system/task/'
+    let MODULE_PATH = '/system/rediss/'
 
     let cols = [
       [
@@ -60,8 +60,8 @@
         { title: 'ID', field: 'id', align: 'center', width: 100 },
         { title: '函数', field: 'func', align: 'center' },
         { title: '名称', field: 'name', align: 'center' },
-        { title: '开始时间', field: 'start_date', align: 'center',templet: '#task-createTime'},
-        { title: '是否运行', field: 'next_run_time', align: 'center', templet: '#task-status' },
+        { title: '开始时间', field: 'start_date', align: 'center',templet: '#rediss-createTime'},
+        { title: '是否运行', field: 'next_run_time', align: 'center', templet: '#rediss-status' },
         { title: '类型', field: 'trigger', align: 'center' },
         { title: '操作', toolbar: '#role-bar', align: 'center', width: 195 }
       ]

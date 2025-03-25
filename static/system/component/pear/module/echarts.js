@@ -21048,7 +21048,7 @@
             }
 
             this._dueEnd = this._count ? this._count(this.context) : Infinity;
-          } // Note: Stubs, that its host overall task let it has progress, has progress.
+          } // Note: Stubs, that its host overall rediss let it has progress, has progress.
         // If no progress, pass index from upstream to downstream each time plan called.
 
 
@@ -21080,8 +21080,8 @@
 
           this._outputDueEnd = outputDueEnd;
         } else {
-          // (1) Some overall task has no progress.
-          // (2) Stubs, that its host overall task do not let it has progress, has no progress.
+          // (1) Some overall rediss has no progress.
+          // (2) Stubs, that its host overall rediss do not let it has progress, has no progress.
           // This should always be performed so it can be passed to downstream.
           this._dueIndex = this._outputDueEnd = this._settedOutputEnd != null ? this._settedOutputEnd : this._dueEnd;
         }
@@ -21137,8 +21137,8 @@
         return this._progress && this._dueIndex < this._dueEnd;
       };
       /**
-       * @param downTask The downstream task.
-       * @return The downstream task.
+       * @param downTask The downstream rediss.
+       * @return The downstream rediss.
        */
 
 
@@ -21222,31 +21222,31 @@
     // @usage: printTask(this, null, {someExtraProp});
     // @usage: Use `__idxInPipeline` as conditional breakpiont.
     //
-    // window.printTask = function (task: any, prefix: string, extra: { [key: string]: unknown }): void {
+    // window.printTask = function (rediss: any, prefix: string, extra: { [key: string]: unknown }): void {
     //     window.ecTaskUID == null && (window.ecTaskUID = 0);
-    //     task.uidDebug == null && (task.uidDebug = `task_${window.ecTaskUID++}`);
-    //     task.agent && task.agent.uidDebug == null && (task.agent.uidDebug = `task_${window.ecTaskUID++}`);
+    //     rediss.uidDebug == null && (rediss.uidDebug = `task_${window.ecTaskUID++}`);
+    //     rediss.agent && rediss.agent.uidDebug == null && (rediss.agent.uidDebug = `task_${window.ecTaskUID++}`);
     //     let props = [];
-    //     if (task.__pipeline) {
-    //         let val = `${task.__idxInPipeline}/${task.__pipeline.tail.__idxInPipeline} ${task.agent ? '(stub)' : ''}`;
+    //     if (rediss.__pipeline) {
+    //         let val = `${rediss.__idxInPipeline}/${rediss.__pipeline.tail.__idxInPipeline} ${rediss.agent ? '(stub)' : ''}`;
     //         props.push({text: '__idxInPipeline/total', value: val});
     //     } else {
     //         let stubCount = 0;
-    //         task.agentStubMap.each(() => stubCount++);
+    //         rediss.agentStubMap.each(() => stubCount++);
     //         props.push({text: 'idx', value: `overall (stubs: ${stubCount})`});
     //     }
-    //     props.push({text: 'uid', value: task.uidDebug});
-    //     if (task.__pipeline) {
-    //         props.push({text: 'pipelineId', value: task.__pipeline.id});
-    //         task.agent && props.push(
-    //             {text: 'stubFor', value: task.agent.uidDebug}
+    //     props.push({text: 'uid', value: rediss.uidDebug});
+    //     if (rediss.__pipeline) {
+    //         props.push({text: 'pipelineId', value: rediss.__pipeline.id});
+    //         rediss.agent && props.push(
+    //             {text: 'stubFor', value: rediss.agent.uidDebug}
     //         );
     //     }
     //     props.push(
-    //         {text: 'dirty', value: task._dirty},
-    //         {text: 'dueIndex', value: task._dueIndex},
-    //         {text: 'dueEnd', value: task._dueEnd},
-    //         {text: 'outputDueEnd', value: task._outputDueEnd}
+    //         {text: 'dirty', value: rediss._dirty},
+    //         {text: 'dueIndex', value: rediss._dueIndex},
+    //         {text: 'dueEnd', value: rediss._dueEnd},
+    //         {text: 'outputDueEnd', value: rediss._outputDueEnd}
     //     );
     //     if (extra) {
     //         Object.keys(extra).forEach(key => {
@@ -21261,8 +21261,8 @@
     //     console.log.apply(console, [msg].concat(args));
     //     // console.log(this);
     // };
-    // window.printPipeline = function (task: any, prefix: string) {
-    //     const pipeline = task.__pipeline;
+    // window.printPipeline = function (rediss: any, prefix: string) {
+    //     const pipeline = rediss.__pipeline;
     //     let currTask = pipeline.head;
     //     while (currTask) {
     //         window.printTask(currTask, prefix);
@@ -21271,24 +21271,24 @@
     // };
     // window.showChain = function (chainHeadTask) {
     //     var chain = [];
-    //     var task = chainHeadTask;
-    //     while (task) {
+    //     var rediss = chainHeadTask;
+    //     while (rediss) {
     //         chain.push({
-    //             task: task,
-    //             up: task._upstream,
-    //             down: task._downstream,
-    //             idxInPipeline: task.__idxInPipeline
+    //             rediss: rediss,
+    //             up: rediss._upstream,
+    //             down: rediss._downstream,
+    //             idxInPipeline: rediss.__idxInPipeline
     //         });
-    //         task = task._downstream;
+    //         rediss = rediss._downstream;
     //     }
     //     return chain;
     // };
-    // window.findTaskInChain = function (task, chainHeadTask) {
+    // window.findTaskInChain = function (rediss, chainHeadTask) {
     //     let chain = window.showChain(chainHeadTask);
     //     let result = [];
     //     for (let i = 0; i < chain.length; i++) {
     //         let chainItem = chain[i];
-    //         if (chainItem.task === task) {
+    //         if (chainItem.rediss === rediss) {
     //             result.push(i);
     //         }
     //     }
@@ -21297,7 +21297,7 @@
     // window.printChainAEachInChainB = function (chainHeadTaskA, chainHeadTaskB) {
     //     let chainA = window.showChain(chainHeadTaskA);
     //     for (let i = 0; i < chainA.length; i++) {
-    //         console.log('chainAIdx:', i, 'inChainB:', window.findTaskInChain(chainA[i].task, chainHeadTaskB));
+    //         console.log('chainAIdx:', i, 'inChainB:', window.findTaskInChain(chainA[i].rediss, chainHeadTaskB));
     //     }
     // };
 
@@ -24126,7 +24126,7 @@
        * Consider some method like `filter`, `map` need make new data,
        * We should make sure that `seriesModel.getData()` get correct
        * data in the stream procedure. So we fetch data from upstream
-       * each time `task.perform` called.
+       * each time `rediss.perform` called.
        */
 
 
@@ -24158,8 +24158,8 @@
         if (task) {
           var context = task.context; // Consider case: filter, data sample.
           // FIXME:TS never used, so comment it
-          // if (context.data !== data && task.modifyOutputEnd) {
-          //     task.setOutputEnd(data.count());
+          // if (context.data !== data && rediss.modifyOutputEnd) {
+          //     rediss.setOutputEnd(data.count());
           // }
 
           context.outputData = data; // Caution: setData should update context.data,
@@ -24549,7 +24549,7 @@
 
       if (pipeline) {
         // When pipline finished, the currrentTask keep the last
-        // task (renderTask).
+        // rediss (renderTask).
         var task = pipeline.currentTask;
 
         if (task) {
@@ -25346,11 +25346,11 @@
         // (3) How to update target series when coordinate system related components modified.
         // TODO: simply the dirty mechanism? Check whether only the case here can set tasks dirty,
         // and this case all of the tasks will be set as dirty.
-        ecModel.restoreData(payload); // Theoretically an overall task not only depends on each of its target series, but also
+        ecModel.restoreData(payload); // Theoretically an overall rediss not only depends on each of its target series, but also
         // depends on all of the series.
-        // The overall task is not in pipeline, and `ecModel.restoreData` only set pipeline tasks
-        // dirty. If `getTargetSeries` of an overall task returns nothing, we should also ensure
-        // that the overall task is set as dirty and to be performed, otherwise it probably cause
+        // The overall rediss is not in pipeline, and `ecModel.restoreData` only set pipeline tasks
+        // dirty. If `getTargetSeries` of an overall rediss returns nothing, we should also ensure
+        // that the overall rediss is set as dirty and to be performed, otherwise it probably cause
         // state chaos. So we have to set dirty of all of the overall tasks manually, otherwise it
         // probably cause state chaos (consider `dataZoomProcessor`).
 
@@ -25362,7 +25362,7 @@
 
 
       Scheduler.prototype.getPerformArgs = function (task, isBlock) {
-        // For overall task
+        // For overall rediss
         if (!task.__pipeline) {
           return;
         }
@@ -25502,8 +25502,8 @@
             });
             overallNeedDirty_1 && overallTask.dirty();
             scheduler.updatePayload(overallTask, payload);
-            var performArgs_1 = scheduler.getPerformArgs(overallTask, opt.block); // Execute stubs firstly, which may set the overall task dirty,
-            // then execute the overall task. And stub will call seriesModel.setData,
+            var performArgs_1 = scheduler.getPerformArgs(overallTask, opt.block); // Execute stubs firstly, which may set the overall rediss dirty,
+            // then execute the overall rediss. And stub will call seriesModel.setData,
             // which ensures that in the overallTask seriesModel.getData() will not
             // return incorrect data.
 
@@ -25596,7 +25596,7 @@
 
         function create(seriesModel) {
           var pipelineId = seriesModel.uid; // Init tasks for each seriesModel only once.
-          // Reuse original task instance.
+          // Reuse original rediss instance.
 
           var task = newSeriesTaskMap.set(pipelineId, oldSeriesTaskMap && oldSeriesTaskMap.get(pipelineId) || createTask({
             plan: seriesTaskPlan,
@@ -25620,7 +25620,7 @@
 
       Scheduler.prototype._createOverallStageTask = function (stageHandler, stageHandlerRecord, ecModel, api) {
         var scheduler = this;
-        var overallTask = stageHandlerRecord.overallTask = stageHandlerRecord.overallTask // For overall task, the function only be called on reset stage.
+        var overallTask = stageHandlerRecord.overallTask = stageHandlerRecord.overallTask // For overall rediss, the function only be called on reset stage.
         || createTask({
           reset: overallTaskReset
         });
@@ -25639,9 +25639,9 @@
         var overallProgress = true;
         var shouldOverallTaskDirty = false; // FIXME:TS never used, so comment it
         // let modifyOutputEnd = stageHandler.modifyOutputEnd;
-        // An overall task with seriesType detected or has `getTargetSeries`, we add
-        // stub in each pipelines, it will set the overall task dirty when the pipeline
-        // progress. Moreover, to avoid call the overall task each frame (too frequent),
+        // An overall rediss with seriesType detected or has `getTargetSeries`, we add
+        // stub in each pipelines, it will set the overall rediss dirty when the pipeline
+        // progress. Moreover, to avoid call the overall rediss each frame (too frequent),
         // we set the pipeline block.
 
         var errMsg = '';
@@ -25656,7 +25656,7 @@
           ecModel.eachRawSeriesByType(seriesType, createStub);
         } else if (getTargetSeries) {
           getTargetSeries(ecModel, api).each(createStub);
-        } // Otherwise, (usually it is legancy case), the overall task will only be
+        } // Otherwise, (usually it is legancy case), the overall rediss will only be
         // executed when upstream dirty. Otherwise the progressive rendering of all
         // pipelines will be disabled unexpectedly. But it still needs stubs to receive
         // dirty info from upsteam.
@@ -28278,7 +28278,7 @@
               updateStreamModes(this, ecModel); // Do not update coordinate system here. Because that coord system update in
               // each frame is not a good user experience. So we follow the rule that
               // the extent of the coordinate system is determin in the first frame (the
-              // frame is executed immedietely after task reset.
+              // frame is executed immedietely after rediss reset.
               // this._coordSysMgr.update(ecModel, api);
               // console.log('--- ec frame visual ---', remainTime);
 
@@ -29340,7 +29340,7 @@
                 seriesDirtyMap.set(seriesModel.uid, 1);
               }
             });
-            clearColorPalette(ecModel); // Keep pipe to the exist pipeline because it depends on the render task of the full pipeline.
+            clearColorPalette(ecModel); // Keep pipe to the exist pipeline because it depends on the render rediss of the full pipeline.
             // this._scheduler.performVisualTasks(ecModel, payload, 'layout', true);
 
             this._scheduler.performVisualTasks(ecModel, payload, {
@@ -29362,7 +29362,7 @@
 
             ecModel.setUpdatePayload(payload);
             ChartView.markUpdateMethod(payload, 'updateView');
-            clearColorPalette(ecModel); // Keep pipe to the exist pipeline because it depends on the render task of the full pipeline.
+            clearColorPalette(ecModel); // Keep pipe to the exist pipeline because it depends on the render rediss of the full pipeline.
 
             this._scheduler.performVisualTasks(ecModel, payload, {
               setDirty: true
@@ -29388,7 +29388,7 @@
             }); // Perform visual
 
             ChartView.markUpdateMethod(payload, 'updateVisual');
-            clearColorPalette(ecModel); // Keep pipe to the exist pipeline because it depends on the render task of the full pipeline.
+            clearColorPalette(ecModel); // Keep pipe to the exist pipeline because it depends on the render rediss of the full pipeline.
 
             this._scheduler.performVisualTasks(ecModel, payload, {
               visualType: 'visual',

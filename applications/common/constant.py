@@ -1,5 +1,11 @@
 from enum import Enum
 
 class Model(Enum):
-    SD = 100
-    MD = 101
+    SD = "stablediffusion"
+    MD = "midjunery"
+
+class MediaType(Enum):
+    i = 'image'
+    s = 'sound'
+    v = 'video'
+    u = 'upload'

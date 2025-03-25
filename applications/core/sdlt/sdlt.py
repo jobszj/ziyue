@@ -14,6 +14,7 @@ TENCENT_API_URL = 'http://119.91.238.87/sdapi/v1'
 def image_sdlt(args):
     prompt = args.get('prompt')
     img = args.get('imageUrl')
+    sub_task_id = args.get('sub_task_id')
     if not img:
         # 调用文生图
         url = LOCAL_API_URL + 'txt2img'
@@ -93,7 +94,6 @@ def image_sdlt(args):
     try:
         # 调用第三方接口
         response = requests.post(url=url, json=payload)
-        print("调用接口", response, prompt)
         # 检查响应状态
         if response.status_code == 200:
             data = response.json()
@@ -102,10 +102,6 @@ def image_sdlt(args):
                 image_data = base64.b64decode(data['images'][0])
                 # 将图片上传至七牛云，并返回图片URL
                 pic_url = upload_image_to_qiniu(image_data, 'g')
-                # 将二进制数据转换为图像对象
-                image = Image.open(io.BytesIO(image_data))
-                # 定义图片保存路径
-                image.save(f"image222.png")
                 # 这里可以处理返回的图像数据
                 return pic_url
             else:
