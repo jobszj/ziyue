@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import abort, request, jsonify, session, current_app
 from flask_login import login_required, current_user
-from applications.common.admin_log import admin_log
+from applications.common.log import admin_log
 
 
 def authorize(power: str, log: bool = False):
