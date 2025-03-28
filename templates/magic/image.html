@@ -41,24 +41,24 @@
               </select>
             </div>
           </div>
-          <div class="layui-form-item option1-field"  style="display: none;">
-            <label class="layui-form-label">变体:</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="v" title="V1" value="v1" lay-skin="primary">
-                <input type="checkbox" name="v" title="V2" value="v2" lay-skin="primary">
-                <input type="checkbox" name="v" title="V3" value="v3" lay-skin="primary">
-                <input type="checkbox" name="v" title="V4" value="v4" lay-skin="primary">
-            </div>
-          </div>
-          <div class="layui-form-item option2-field"  style="display: none;">
-            <label class="layui-form-label">放大:</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="u" title="U1" value="u1" lay-skin="primary">
-                <input type="checkbox" name="u" title="U2" value="u2" lay-skin="primary">
-                <input type="checkbox" name="u" title="U3" value="u3" lay-skin="primary">
-                <input type="checkbox" name="u" title="U4" value="u4" lay-skin="primary">
-            </div>
-          </div>
+{#          <div class="layui-form-item option1-field"  style="display: none;">#}
+{#            <label class="layui-form-label">变体:</label>#}
+{#            <div class="layui-input-block">#}
+{#                <input type="checkbox" name="v" title="V1" value="v1" lay-skin="primary">#}
+{#                <input type="checkbox" name="v" title="V2" value="v2" lay-skin="primary">#}
+{#                <input type="checkbox" name="v" title="V3" value="v3" lay-skin="primary">#}
+{#                <input type="checkbox" name="v" title="V4" value="v4" lay-skin="primary">#}
+{#            </div>#}
+{#          </div>#}
+{#          <div class="layui-form-item option2-field"  style="display: none;">#}
+{#            <label class="layui-form-label">放大:</label>#}
+{#            <div class="layui-input-block">#}
+{#                <input type="checkbox" name="u" title="U1" value="u1" lay-skin="primary">#}
+{#                <input type="checkbox" name="u" title="U2" value="u2" lay-skin="primary">#}
+{#                <input type="checkbox" name="u" title="U3" value="u3" lay-skin="primary">#}
+{#                <input type="checkbox" name="u" title="U4" value="u4" lay-skin="primary">#}
+{#            </div>#}
+{#          </div>#}
         </div>
         <div class="layui-col-md6">
           <div class="layui-form-item">
@@ -111,15 +111,15 @@
         });
 
         // 监听下拉框选择事件
-        form.on('select(typeSelect)', function (data) {
-            var value = data.value;
-            // 隐藏所有相关字段
-            $('.option1-field, .option2-field').hide();
-            if (value === 'MD') {
-                $('.option1-field').show();
-                $('.option2-field').show();
-            }
-        });
+        {#form.on('select(typeSelect)', function (data) {#}
+        {#    var value = data.value;#}
+        {#    // 隐藏所有相关字段#}
+        {#    $('.option1-field, .option2-field').hide();#}
+        {#    if (value === 'MD') {#}
+        {#        $('.option1-field').show();#}
+        {#        $('.option2-field').show();#}
+        {#    }#}
+        {# });#}
 
         // 执行上传实例
         upload.render({
@@ -153,18 +153,18 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '生成中...';
             // 处理多选框的值1V2U
-            var multiSelect1Values = [];
-            $('input[name="v"]:checked').each(function () {
-                multiSelect1Values.push($(this).val());
-            });
-            data.field.v = multiSelect1Values;
-
-            var multiSelect2Values = [];
-            $('input[name="u"]:checked').each(function () {
-                multiSelect2Values.push($(this).val());
-            });
-            data.field.u = multiSelect2Values;
-            console.log(data.field);
+            {#var multiSelect1Values = [];#}
+            {#$('input[name="v"]:checked').each(function () {#}
+            {#    multiSelect1Values.push($(this).val());#}
+            {# });#}
+            {#data.field.v = multiSelect1Values;#}
+            {##}
+            {#var multiSelect2Values = [];#}
+            {#$('input[name="u"]:checked').each(function () {#}
+            {#    multiSelect2Values.push($(this).val());#}
+            {# });#}
+            {#data.field.u = multiSelect2Values;#}
+            {#console.log(data.field);#}
             // 这里可以添加 AJAX 请求将数据提交到后端
             $.ajax({
                 url: '/magic/image/generate',

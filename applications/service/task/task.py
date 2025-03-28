@@ -3,6 +3,7 @@
 import uuid
 from flask_login import current_user
 from applications.common.constant import MediaType
+from applications.core.midjourney.mj import mj_generate_image
 from applications.core.sdlt.sdlt import image_sdlt
 from applications.init import db
 from applications.models import Photo
@@ -45,6 +46,7 @@ def generate_tasks(args):
             db.session.add(photo)
             db.session.commit()
     else:
+        mj_generate_image(args)
         return None
     return None
 
