@@ -12,7 +12,7 @@ def mj_generate_image(args):
         # 图生图
         payload = {
             "prompt": prompt,
-            "base64Array": ,
+            "base64Array":  ,
             "base64":
         }
     else:
