@@ -9,3 +9,5 @@ from .admin_user import User
 from .admin_user_role import user_role
 from .admin_mail import Mail
 from .magic_tag import Tag
+from .magic_task import Tasks
+from .magic_aigc import Aigc

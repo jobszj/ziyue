@@ -240,7 +240,6 @@ class DeepClaude:
                     break
         except Exception as e:
             reasoning_content = ["获取推理内容失败"]
-
         # 2. 构造 Claude 的输入消息
         reasoning = "".join(reasoning_content)
         claude_messages = messages.copy()
@@ -276,6 +275,9 @@ class DeepClaude:
         )
         encoding = tiktoken.encoding_for_model("gpt-4o")
         input_tokens = encoding.encode(token_content)
+
+
+        print("Claude输入-------", claude_messages, claude_model, model_arg, system_content)
         # 3. 获取 Claude 的非流式响应
         try:
             answer = ""

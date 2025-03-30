@@ -28,7 +28,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">数量:</label>
             <div class="layui-input-inline">
-              <input type="number" name="quantity" lay-verify="integer" placeholder="请输入数量" class="layui-input">
+                <input type="number" name="quantity" class="layui-input" lay-verify="number" placeholder="请输入大于0的整数" min="1" value="1">
             </div>
             <span class="layui-form-mid layui-word-aux">张</span>
           </div>
@@ -37,7 +37,7 @@
             <div class="layui-input-block">
               <select name="model" lay-filter="typeSelect">
                 <option value="SD">SD3.5 large turbo</option>
-                <option value="MD">midjunery</option>
+                <option value="MJ">midjunery</option>
               </select>
             </div>
           </div>

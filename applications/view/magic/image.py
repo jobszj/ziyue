@@ -1,11 +1,10 @@
-import threading
-
 from flask import Blueprint, render_template, request
 from applications.common.utils.http import table_api
 from applications.common.utils.rights import authorize
-from applications.service.task.task import generate_tasks
+from applications.service.task.task import generate_task
 
 bp = Blueprint('image', __name__, url_prefix='/image')
+
 # 脚本生成
 @bp.get('/')
 @authorize("magic:image:main")
@@ -15,12 +14,11 @@ def main():
 # 生成图片表单提交功能接口
 @bp.route('/generate', methods=['POST'])
 @authorize("magic:image:add", log=True)
-def generate_images():
+def image_generate():
     req_json = request.get_json(force=True)
-    # 创建任务，并直接返回，服务端通过多线程方式实现多任务
-    thread = threading.Thread(target=generate_tasks, args=(req_json))
-    thread.start()
-    return table_api(msg="生成图片成功")
+    # 创建任务并将任务放到MYSQL中
+    generate_task(req_json)
+    return table_api(msg="生成图片中")
 
 @bp.route('/callback', methods=['POST'])
 def upscale_callback():

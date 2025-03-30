@@ -281,6 +281,7 @@ class ModelManager:
                     media_type="text/event-stream",
                 )
             else:
+
                 return await model_instance.chat_completions_without_stream(
                     messages=messages,
                     model_arg=model_params,
@@ -313,6 +314,8 @@ class ModelManager:
             raise ValueError("配置必须是字典")
         
         # 更新配置
+
+        print("打印传入的config", config, type(config))
         self.config = config
         
         # 清空模型实例缓存，以便重新创建

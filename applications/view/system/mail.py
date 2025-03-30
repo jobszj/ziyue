@@ -1,12 +1,11 @@
 from flask import Blueprint, render_template, request, current_app
 from flask_login import current_user
-from flask_mail import Message
 from applications.common.curd import model_to_dicts
 from applications.common.helper import ModelFilter
 from applications.common.utils.http import table_api, fail_api, success_api
 from applications.common.utils.rights import authorize
 from applications.common.utils.validate import str_escape
-from applications.init import db, flask_mail
+from applications.init import db
 from applications.models import Mail
 from applications.schemas import MailOutSchema
 
@@ -59,13 +58,6 @@ def save():
     subject = str_escape(req_json.get('subject'))
     content = str_escape(req_json.get('content'))
     user_id = current_user.id
-
-    try:
-        msg = Message(subject=subject, recipients=receiver.split(";"), body=content)
-        flask_mail.send(msg)
-    except Exception as e:
-        current_app.log_exception(e)
-        return fail_api(msg="发送失败，请检查邮件配置或发送人邮箱是否写错")
 
     mail = Mail(receiver=receiver, subject=subject, content=content, user_id=user_id)
 
