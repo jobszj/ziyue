@@ -67,3 +67,23 @@ tiktoken==0.8.0
 urllib3==2.3.0
 uvicorn==0.34.0
 yarl==1.18.3
+# 来自py-midjourney
+toml
+numpy
+python-multipart
+tinydb
+ordered-set
+dill
+peewee
+celery
+redis
+qrcode
+BeautifulSoup4
+lxml
+oss2
+alibabacloud_imageseg20191230==3.0.0
+cachetools
+pymongo
+injector
+requests_toolbelt
+websocket-client
