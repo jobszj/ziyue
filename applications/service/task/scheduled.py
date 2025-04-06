@@ -5,7 +5,6 @@ import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from applications.common.constant import TaskStatus, TaskType, Model
 from applications.core.deepclaude.manager import model_manager
-from applications.core.midjourney.mj import dmx_mj_generate_image, discord_mj_generate_image
 from applications.core.sdlt.sdlt import txt_image_sdlt, image_image_sdlt
 from applications.init import db
 from applications.models import Tasks, Aigc
@@ -73,7 +72,8 @@ def init_scheduler(app):
                             pic_url = image_image_sdlt(prompt_en, negative_prompt, task.goods_pic)
                     elif task.task_model == Model.MJ.value:
                         # 调用MJ
-                        pic_url = discord_mj_generate_image(prompt_en)
+                        # pic_url = discord_mj_generate_image(prompt_en)
+                        pass
                     else:
                         pass
 
