@@ -10,57 +10,44 @@
         <div class="main-container">
             <div class="main-container">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">上级部门</label>
+                    <label class="layui-form-label">上级标签</label>
                     <div class="layui-input-block">
                         <ul id="selectParent" name="parentId" class="dtree" data-id="0"></ul>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">名称</label>
+                    <label class="layui-form-label">标签名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="deptName" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                        <input type="text" name="tagName" lay-verify="title" autocomplete="off" placeholder="请输入标签"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">负责人</label>
+                    <label class="layui-form-label">描述</label>
                     <div class="layui-input-block">
-                        <input type="text" name="leader" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                        <input type="text" name="tagDesc" lay-verify="title" autocomplete="off" placeholder="请输入描述"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
+                    <label class="layui-form-label">备注</label>
                     <div class="layui-input-block">
-                        <input type="text" name="email" lay-verify="title" autocomplete="off" placeholder="请输入标题"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">联系方式</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="phone" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                        <input type="text" name="remark" lay-verify="title" autocomplete="off" placeholder="请输入备注"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="status" value="1" title="开启">
-                        <input type="radio" name="status" value="0" title="关闭" checked>
+                        <input type="radio" name="tagStatus" value="1" title="开启">
+                        <input type="radio" name="tagStatus" value="0" title="关闭" checked>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">排序</label>
                     <div class="layui-input-block">
-                        <input type="text" name="sort" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                        <input type="text" name="sort" lay-verify="title" autocomplete="off" placeholder="请输入排序"
                                class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">详细地址</label>
-                    <div class="layui-input-block">
-                        <textarea placeholder="请输入描述" name="address" class="layui-textarea"></textarea>
                     </div>
                 </div>
             </div>
@@ -68,7 +55,7 @@
     </div>
     <div class="bottom">
         <div class="button-container">
-            <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="dept-save">
+            <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="tag-save">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -88,18 +75,18 @@
 
     dtree.renderSelect({
       elem: '#selectParent',
-      url: '/system/dept/tree',
+      url: '/magic/tag/tree',
       method: 'get',
       selectInputName: { nodeId: 'parentId', context: 'parentName' },
       skin: 'layui',
       dataFormat: 'list',
-      response: { treeId: 'id', parentId: 'parent_id', title: 'dept_name' },
+      response: { treeId: 'id', parentId: 'parent_id', title: 'tag_name' },
       selectInitVal: '1'
     })
 
-    form.on('submit(dept-save)', function (data) {
+    form.on('submit(tag-save)', function (data) {
       $.ajax({
-        url: '/system/dept/save',
+        url: '/magic/tag/save',
         data: JSON.stringify(data.field),
         dataType: 'json',
         contentType: 'application/json',

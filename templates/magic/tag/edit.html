@@ -12,38 +12,30 @@
                 <div class="layui-form-item layui-hide">
                     <label class="layui-form-label">编号</label>
                     <div class="layui-input-block">
-                        <input type="text" value="{{ dept.id }}" name="deptId" lay-verify="title"
-                               autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        <input type="text" value="{{ tag.id }}" name="tagId" lay-verify="title"
+                               autocomplete="off" placeholder="请输入标签" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">名称</label>
+                    <label class="layui-form-label">标签</label>
                     <div class="layui-input-block">
-                        <input type="text" value="{{ dept.dept_name }}" name="deptName" lay-verify="title"
-                               autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        <input type="text" value="{{ tag.tag_name }}" name="tagName" lay-verify="title"
+                               autocomplete="off" placeholder="请输入标签" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">负责人</label>
+                    <label class="layui-form-label">描述</label>
                     <div class="layui-input-block">
-                        <input type="text" value="{{ dept.leader }}" name="leader" lay-verify="title" autocomplete="off"
-                               placeholder="请输入负责人"
+                        <input type="text" value="{{ tag.tag_descript }}" name="tagDesc" lay-verify="title" autocomplete="off"
+                               placeholder="标签描述"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
+                    <label class="layui-form-label">备注</label>
                     <div class="layui-input-block">
-                        <input type="text" value="{{ dept.email }}" name="email" lay-verify="title" autocomplete="off"
-                               placeholder="请输入邮箱"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">联系方式</label>
-                    <div class="layui-input-block">
-                        <input type="text" value="{{ dept.phone }}" name="phone" lay-verify="title" autocomplete="off"
-                               placeholder="请输入联系方式"
+                        <input type="text" value="{{ tag.remark }}" name="remark" lay-verify="title" autocomplete="off"
+                               placeholder="请输入备注"
                                class="layui-input">
                     </div>
                 </div>
@@ -51,10 +43,10 @@
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
 
-                        <input type="radio" name="status" {% if dept.status == 1 %}checked{% endif %} value="1"
+                        <input type="radio" name="status" {% if tag.tag_status == 1 %}checked{% endif %} value="1"
                                title="开启">
 
-                        <input type="radio" name="status" {% if dept.status == 0 %}checked{% endif %} value="0"
+                        <input type="radio" name="status" {% if tag.tag_status == 0 %}checked{% endif %} value="0"
                                title="关闭"
                         >
                     </div>
@@ -62,16 +54,9 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">排序</label>
                     <div class="layui-input-block">
-                        <input type="text" name="sort" value="{{ dept.sort }}" lay-verify="title" autocomplete="off"
+                        <input type="text" name="sort" value="{{ tag.sort }}" lay-verify="title" autocomplete="off"
                                placeholder="请输入排序"
                                class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">地址</label>
-                    <div class="layui-input-block">
-                        <textarea placeholder="请输入详细地址" name="address"
-                                  class="layui-textarea">{{ dept.address }}</textarea>
                     </div>
                 </div>
             </div>
@@ -80,7 +65,7 @@
     <div class="bottom">
         <div class="button-container">
             <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
-                    lay-filter="dept-update">
+                    lay-filter="tag-update">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -97,9 +82,9 @@
     let form = layui.form
     let $ = layui.jquery
 
-    form.on('submit(dept-update)', function (data) {
+    form.on('submit(tag-update)', function (data) {
       $.ajax({
-        url: '/system/dept/update',
+        url: '/magic/tag/update',
         data: JSON.stringify(data.field),
         dataType: 'json',
         contentType: 'application/json',

@@ -11,9 +11,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">标签名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="deptName" placeholder="" class="layui-input">
+                    <input type="text" name="tagName" placeholder="" class="layui-input">
                 </div>
-                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="dept-query">
+                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="tag-query">
                     <i class="layui-icon layui-icon-search"></i>
                     查询
                 </button>
@@ -28,11 +28,11 @@
 
 <div class="layui-card">
     <div class="layui-card-body">
-        <table id="dept-table" lay-filter="dept-table"></table>
+        <table id="tag-table" lay-filter="tag-table"></table>
     </div>
 </div>
 
-<script type="text/html" id="dept-toolbar">
+<script type="text/html" id="c">
     {% if authorize("magic:tag:edit") %}
         <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
             <i class="layui-icon layui-icon-add-1"></i>
@@ -47,7 +47,7 @@
     {% endif %}
 </script>
 
-<script type="text/html" id="dept-bar">
+<script type="text/html" id="tag-bar">
     {% if authorize("magic:tag:edit") %}
         <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i
                 class="layui-icon layui-icon-edit"></i>
@@ -60,10 +60,10 @@
     {% endif %}
 </script>
 {% raw %}
-<script type="text/html" id="dept-status">
-    <input type="checkbox" name="status" value="{{ d.id }}" lay-skin="switch" lay-text="启用|禁用"
-           lay-filter="dept-enable"
-           {{# if(d.status==1){ }} checked {{# } }}>
+<script type="text/html" id="tag-status">
+    <input type="checkbox" name="tag-status" value="{{ d.id }}" lay-skin="switch" lay-text="启用|禁用"
+           lay-filter="tag-enable"
+           {{# if(d.tag_status==1){ }} checked {{# } }}>
 </script>
 {% endraw %}
 </body>
@@ -89,8 +89,8 @@
                 skin: 'line',
                 method: 'post',
                 treeDefaultClose: false,
-                toolbar: '#dept-toolbar',
-                elem: '#dept-table',
+                toolbar: '#tag-toolbar',
+                elem: '#tag-table',
                 url: '/magic/tag/data',
                 page: false,
                 cols: [
@@ -98,17 +98,17 @@
                         {field: 'id', title: 'id'},
                         {field: 'tag_name', minWidth: 200, title: '标签名称'},
                         {field: 'tag_descript', title: '标签描述'},
-                        {field: 'status', title: '状态', templet: '#dept-status'},
+                        {field: 'tag_status', title: '状态', templet: '#tag-status'},
                         {field: 'sort', title: '排序', width: 100},
-                        {title: '操作', templet: '#dept-bar', width: 120, align: 'center'}
+                        {title: '操作', templet: '#tag-bar', width: 120, align: 'center'}
                     ]
                 ]
             })
         }
 
-        form.on('submit(dept-query)', function (data) {
-            var keyword = data.field.deptName
-            var $tds = $('#dept-table').next('.treeTable').find('.layui-table-body tbody tr td')
+        form.on('submit(tag-query)', function (data) {
+            var keyword = data.field.tagName
+            var $tds = $('#tag-table').next('.treeTable').find('.layui-table-body tbody tr td')
             if (!keyword) {
                 $tds.css('background-color', 'transparent')
                 layer.msg('请输入关键字', {icon: 5})
@@ -129,14 +129,14 @@
             if (searchCount === 0) {
                 layer.msg('没有匹配结果', {icon: 5})
             } else {
-                treetable.expandAll('#dept-table')
+                treetable.expandAll('#tag-table')
             }
             return false
         })
 
         render()
 
-        table.on('tool(dept-table)', function (obj) {
+        table.on('tool(tag-table)', function (obj) {
             if (obj.event === 'remove') {
                 window.remove(obj)
             } else if (obj.event === 'edit') {
@@ -144,7 +144,7 @@
             }
         })
 
-        table.on('toolbar(dept-table)', function (obj) {
+        table.on('toolbar(tag-table)', function (obj) {
             if (obj.event === 'add') {
                 window.add()
             } else if (obj.event === 'refresh') {
@@ -155,7 +155,7 @@
             }
         })
 
-        form.on('switch(dept-enable)', function (obj) {
+        form.on('switch(tag-enable)', function (obj) {
             let operate
             if (obj.elem.checked) {
                 operate = 'enable'
@@ -197,7 +197,7 @@
                 shade: 0.1,
                 area: ['450px', '500px'],
                 //content: MODULE_PATH + 'edit?deptId=' + obj.data['deptId']
-                content: MODULE_PATH + 'edit?deptId=' + obj.data['id']
+                content: MODULE_PATH + 'edit?tagId=' + obj.data['id']
             })
         }
 

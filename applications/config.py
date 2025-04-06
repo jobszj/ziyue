@@ -21,10 +21,10 @@ class BaseConfig:
     # mysql 配置
     MYSQL_USERNAME = "root"
     #window的密码是19880801,数据库是mini,mac的是123456数据库是magic
-    MYSQL_PASSWORD = "123456"
-    MYSQL_DATABASE = "magic"
-    # MYSQL_PASSWORD = "19880801"
-    # MYSQL_DATABASE = "mini"
+    # MYSQL_PASSWORD = "123456"
+    # MYSQL_DATABASE = "magic"
+    MYSQL_PASSWORD = "19880801"
+    MYSQL_DATABASE = "mini"
     MYSQL_HOST = "127.0.0.1"
     MYSQL_PORT = 3306
 

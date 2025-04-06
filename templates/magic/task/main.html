@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>任务</title>
+    {% include 'system/common/header.html' %}
+</head>
+<body class="pear-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">任务类型</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="deptName" placeholder="" class="layui-input">
+                </div>
+                <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="task-query">
+                    <i class="layui-icon layui-icon-search"></i>
+                    查询
+                </button>
+                <button type="reset" class="pear-btn pear-btn-md">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                    重置
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="task-table" lay-filter="task-table"></table>
+    </div>
+</div>
+
+{% raw %}
+<script type="text/html" id="status">
+    <input type="checkbox" name="status" value="{{ d.id }}" lay-skin="switch" lay-text="Pending|Running|Completed|Failed"
+           lay-filter="task-enable"
+           {{# if(d.status=="Pending"){ }} checked {{# } }}>
+</script>
+{% endraw %}
+</body>
+
+{% include 'system/common/footer.html' %}
+
+<script>
+    layui.use(['table', 'form', 'jquery', 'popup'], function () {
+        let table = layui.table
+        let form = layui.form
+        let $ = layui.jquery
+        let popup = layui.popup
+
+        let MODULE_PATH = '/magic/task/'
+
+        let cols = [
+            [
+                {field: 'id', title: 'id'},
+                {field: 'task_id', minWidth: 300, title: '任务ID'},
+                {field: 'task_type', minWidth: 50, title: '任务类型'},
+                {field: 'prompt', minWidth: 400, title: '提示词'},
+                {field: 'quantity', minWidth: 50, title: '数量'},
+                {field: 'task_model', minWidth: 50, title: '任务模型'},
+                {field: 'goods_pic', minWidth: 200, title: '商品图片'},
+                {field: 'user_name', minWidth: 50, title: '用户名'},
+                {field: 'status', minWidth: 50, title: '状态'},
+                {field: 'create_at', minWidth: 150, title: '创建时间'},
+            ]
+        ]
+
+        table.render({
+            elem: '#task-table',
+            url: MODULE_PATH + 'data',
+            page: true,
+            cols: cols,
+            skin: 'line'
+        })
+
+        form.on('submit(task-query)', function (data) {
+            var keyword = data.field.taskType
+            var $tds = $('#task-table').next('.treeTable').find('.layui-table-body tbody tr td')
+            if (!keyword) {
+                $tds.css('background-color', 'transparent')
+                layer.msg('请输入关键字', {icon: 5})
+                return
+            }
+            var searchCount = 0
+            $tds.each(function () {
+                $(this).css('background-color', 'transparent')
+                if ($(this).text().indexOf(keyword) >= 0) {
+                    $(this).css('background-color', 'rgba(250,230,160,0.5)')
+                    if (searchCount === 0) {
+                        $('body,html').stop(true)
+                        $('body,html').animate({scrollTop: $(this).offset().top - 150}, 500)
+                    }
+                    searchCount++
+                }
+            })
+            if (searchCount === 0) {
+                layer.msg('没有匹配结果', {icon: 5})
+            } else {
+                treetable.expandAll('#task-table')
+            }
+            return false
+        })
+    })
+</script>
+</html>
