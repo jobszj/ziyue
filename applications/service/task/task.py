@@ -4,6 +4,8 @@
 import uuid
 from flask_login import current_user
 from applications.common.constant import TaskType, TaskStatus, Model
+from applications.common.constant import MediaType, TaskType, TaskStatus, Model
+from applications.core.midjourney.mj import dmx_mj_generate_image
 from applications.init import db
 from applications.models import Tasks
 
@@ -20,3 +22,5 @@ def generate_task(args):
     db.session.add(task)
     db.session.commit()
     return task_id
+
+

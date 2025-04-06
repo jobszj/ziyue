@@ -1,5 +1,7 @@
 import os
 from flask import Flask
+
+from applications.core.midjourney.init_mj import init_midjourney
 from applications.init.script import init_script
 from applications.config import BaseConfig
 from applications.init import init_plugs
@@ -22,5 +24,8 @@ def create_app():
 
     # 注册定时任务
     init_scheduler(app)
+
+    # 注册midjourney
+    init_midjourney()
 
     return app
