@@ -20,6 +20,7 @@ def image_generate():
     generate_task(req_json)
     return table_api(msg="生成图片中")
 
+
 @bp.route('/callback', methods=['POST'])
 def upscale_callback():
     req_json = request.get_json(force=True)

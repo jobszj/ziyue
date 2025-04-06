@@ -1,5 +1,4 @@
 import base64
-from flask import jsonify
 import requests
 
 from applications.common.qiniu import upload_image_to_qiniu

@@ -41,24 +41,6 @@
               </select>
             </div>
           </div>
-{#          <div class="layui-form-item option1-field"  style="display: none;">#}
-{#            <label class="layui-form-label">变体:</label>#}
-{#            <div class="layui-input-block">#}
-{#                <input type="checkbox" name="v" title="V1" value="v1" lay-skin="primary">#}
-{#                <input type="checkbox" name="v" title="V2" value="v2" lay-skin="primary">#}
-{#                <input type="checkbox" name="v" title="V3" value="v3" lay-skin="primary">#}
-{#                <input type="checkbox" name="v" title="V4" value="v4" lay-skin="primary">#}
-{#            </div>#}
-{#          </div>#}
-{#          <div class="layui-form-item option2-field"  style="display: none;">#}
-{#            <label class="layui-form-label">放大:</label>#}
-{#            <div class="layui-input-block">#}
-{#                <input type="checkbox" name="u" title="U1" value="u1" lay-skin="primary">#}
-{#                <input type="checkbox" name="u" title="U2" value="u2" lay-skin="primary">#}
-{#                <input type="checkbox" name="u" title="U3" value="u3" lay-skin="primary">#}
-{#                <input type="checkbox" name="u" title="U4" value="u4" lay-skin="primary">#}
-{#            </div>#}
-{#          </div>#}
         </div>
         <div class="layui-col-md6">
           <div class="layui-form-item">
@@ -176,9 +158,6 @@
                     if (res.code === 0) {
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = '生成';
-                        // 假设返回的图片路径在 res.data.src 中
-                        {#var imgUrl = res.data.src;#}
-                        {#$('.layui-card-body').html('<img src="' + imgUrl + '" alt="" style="max-width: 100%; max-height: 100%;">');#}
                     } else {
                         layer.msg(res.msg);
                     }

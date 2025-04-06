@@ -8,7 +8,7 @@ from applications.core.deepclaude.manager import model_manager
 from applications.core.midjourney.mj import dmx_mj_generate_image, discord_mj_generate_image
 from applications.core.sdlt.sdlt import txt_image_sdlt, image_image_sdlt
 from applications.init import db
-from applications.models import Tasks
+from applications.models import Tasks, Aigc
 from applications.service.expand.expand import expand
 
 
@@ -67,20 +67,25 @@ def init_scheduler(app):
                         # 调用sdlt服务
                         if task.task_type == TaskType.txt2img.value:
                             # 调用sdlt的文生图服务
-                            txt_image_sdlt(prompt_en, negative_prompt)
+                            pic_url = txt_image_sdlt(prompt_en, negative_prompt)
                         else:
                             # 调用sdlt的图生图服务
-                            image_image_sdlt(prompt_en, negative_prompt, task.goods_pic)
+                            pic_url = image_image_sdlt(prompt_en, negative_prompt, task.goods_pic)
                     elif task.task_model == Model.MJ.value:
                         # 调用MJ
-                        discord_mj_generate_image(prompt_en)
+                        pic_url = discord_mj_generate_image(prompt_en)
                     else:
                         pass
 
-            # 更新任务状态为completed
-            task.status = TaskStatus.COMPLETED.value
-            task.finish_at = datetime.datetime.now()
-            db.session.commit()
+                    aigc = Aigc(task_id=task.task_id, prompt_en=prompt_en, prompt_zh=task.prompt, neg_prompt=negative_prompt, aigc_url=pic_url)
+                    db.session.add(aigc)
+                    db.session.commit()
+
+                # 更新任务状态为completed
+                task.status = TaskStatus.COMPLETED.value
+                task.finish_at = datetime.datetime.now()
+                db.session.commit()
+
 
     # 添加任务
     scheduler.add_job(scheduled_task_with_context, 'interval', seconds=30)
