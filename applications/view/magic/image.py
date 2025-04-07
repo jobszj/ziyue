@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 from applications.common.utils.http import table_api
 from applications.common.utils.rights import authorize
-from applications.service.task.task import generate_task
+from applications.service.task.imagetask import generate_task
 
 bp = Blueprint('image', __name__, url_prefix='/image')
 

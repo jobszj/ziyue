@@ -5,7 +5,7 @@ import asyncio
 bp = Blueprint('deepclaude', __name__, url_prefix='/deepclaude')
 
 
-# 生成图片表单提交功能接口
+# 生成图片表单提交功能接口，测试用的
 @bp.route('/v1/chat/completions', methods=['POST'])
 async def completions():
     body =  await asyncio.to_thread(request.get_json, force=True)

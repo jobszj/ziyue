@@ -7,7 +7,7 @@ from applications.common.constant import TaskStatus, TaskType, Model
 from applications.core.deepclaude.manager import model_manager
 from applications.core.sdlt.sdlt import txt_image_sdlt, image_image_sdlt
 from applications.init import db
-from applications.models import Tasks, Aigc
+from applications.models import Tasks, Aigc, Tag
 from applications.service.expand.expand import expand
 
 
@@ -29,24 +29,22 @@ def init_scheduler(app):
                 total = task.quantity
                 if total > 1:
                     for i in range(total):
-                        # 对提示词进行加工
-                        body = {
-                            "messages": [{
-                                "role": "user",
-                                "content": task.prompt,
-                            }],
-                            "model": "deepgeminipro"
-                        }
-                        p = asyncio.run(model_manager.process_request(body))
-                        content = p.get("choices")[0].get("message").get("content")
-                        print("获取的提示词", p, content)
-                        # 调用生成图片服务
-                        if task.task_model == Model.SD.value:
-                            # 调用sdlt服务
-                            pass
-                        else:
-                            # 调用MJ
-                            pass
+                        # 获取二级节点的ID数组
+                        all_tags = Tag.query.all()
+                        second_tags = []
+                        third_tag = []
+                        for tag in all_tags:
+                            if tag.parent_id == 0:
+                                second_tags.add(tag)
+
+                        for j in range(len(second_tags)):
+                            for t in all_tags:
+                                if second_tags[j].id == t.parent_id:
+                                    third_tag[j].add(t.tag_name)
+
+
+
+
                 else:
                     # 对提示词进行加工
                     prompt_new, negative_prompt = expand(task.prompt)
@@ -86,7 +84,13 @@ def init_scheduler(app):
                 task.finish_at = datetime.datetime.now()
                 db.session.commit()
 
+    # 定义第二个定时任务
+
+    def scheduled_task_with_sub_context():
+        pass
+
 
     # 添加任务
-    scheduler.add_job(scheduled_task_with_context, 'interval', seconds=30)
+    scheduler.add_job(scheduled_task_with_context, 'interval', seconds=60)
+    scheduler.add_job(scheduled_task_with_sub_context(), 'interval', seconds=90)
     scheduler.start()
