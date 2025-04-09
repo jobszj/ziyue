@@ -35,23 +35,21 @@ def init_scheduler(app):
                     all_tags = Tag.query.all()
                     second_tags = []
                     third_tag = []
-                    print("所有的标签", all_tags,  type(all_tags))
                     for tag in all_tags:
-                        print("所有的标签2", tag,  type(tag))
                         if tag.parent_id == 1:
                             second_tags.append(tag)
                     for j in range(len(second_tags)):
-                        id = second_tags[j].get("id")
+                        id = second_tags[j].id
                         tag_name = []
                         for t in all_tags:
-                            if id == t.get("parent_id"):
-                                tag_name.append(t.get("tag_name"))
+                            if id == t.parent_id:
+                                tag_name.append(t.tag_name)
 
                         third_tag.append(tag_name)
                     combinations = list(product(*third_tag))
                     # 从数组中随机选择对应的标签数量生成提示词。
                     selected = random.sample(combinations, total)
-                    print("生成的组合", combinations, selected)
+                    print("生成的组合", selected)
                     for sel in selected:
                         # 对提示词进行加工
                         prompt_new, negative_prompt = expand_tag(task.prompt, sel)
@@ -87,8 +85,19 @@ def init_scheduler(app):
                             else:
                                 # 调用mj的图生图服务，# 对提示词增加权重因子
                                 pro = expand_tag_weight(prompt_en)
-                                image_image_mj(pro, task.goods_pic)
-                            pass
+                                image_image_mj(pro, task.goods_pic, task.task_id)
+                            # mj是四张照片，所以一次需要插入四条数据
+
+                            aigc1 = Aigc(task_id=task.task_id, sub_task_id=str(task.task_id) + "-" + "1", sub_task_tags=str(sel),
+                                         prompt_en=prompt_en, prompt_zh=prompt_new, neg_prompt=negative_prompt)
+                            aigc2 = Aigc(task_id=task.task_id, sub_task_id=str(task.task_id) + "-" + "2", sub_task_tags=str(sel),
+                                         prompt_en=prompt_en, prompt_zh=prompt_new,neg_prompt=negative_prompt)
+                            aigc3 = Aigc(task_id=task.task_id, sub_task_id=str(task.task_id) + "-" + "3", sub_task_tags=str(sel),
+                                         prompt_en=prompt_en,prompt_zh=prompt_new, neg_prompt=negative_prompt)
+                            aigc4 = Aigc(task_id=task.task_id, sub_task_id=str(task.task_id) + "-" + "4", sub_task_tags=str(sel),
+                                         prompt_en=prompt_en, prompt_zh=prompt_new, neg_prompt=negative_prompt)
+                            db.session.add_all([aigc1, aigc2, aigc3, aigc4])
+                            db.session.commit()
                         else:
                             pass
                 else:

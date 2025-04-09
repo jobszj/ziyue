@@ -1,6 +1,7 @@
 import requests
 
 MJ_IMAGE_URL="http://127.0.0.1:8989/mj/submit/imagine"
+MJ_UPSCALE_URL="http://127.0.0.1:8989/mj/submit/change"
 
 # 发起请求
 def send_request():
@@ -25,19 +26,28 @@ def txt_image_mj(prompt_en, taskid):
         "prompt": prompt_en,
         "state": taskid
     }
-    requests.post(MJ_IMAGE_URL, json=pro)
+    response = requests.post(MJ_IMAGE_URL, json=pro)
+    print(response)
 
 def image_image_mj(prompt_en, goods_pic, taskid):
     pro = {
         "prompt": prompt_en,
-        "base64Array": "",
         "base64": goods_pic,
         "state": taskid,
-        "notifyHook": ""
     }
     response = requests.post(MJ_IMAGE_URL, json=pro)
     print(response)
-    pass
+
+def mj_image_upscale(taskid, index):
+    pro = {
+        "taskId": taskid,
+        "action": "UPSCALE",
+        "index": index
+    }
+    response = requests.post(MJ_IMAGE_URL, json=pro)
+
+    print(response, response.json().get("imageUrl"))
+
 
 if __name__ == '__main__':
     txt_image_mj("a girl", "12345")

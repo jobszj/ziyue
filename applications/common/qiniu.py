@@ -44,3 +44,4 @@ def upload_image_to_qiniu(base64_data, type = 'g'):
     finally:
         # 删除临时文件
         os.remove(temp_file_path)
+
