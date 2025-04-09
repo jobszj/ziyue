@@ -22,6 +22,6 @@ def create_app():
     init_script(app)
 
     # 注册定时任务mac上屏蔽
-    # init_scheduler(app)
+    init_scheduler(app)
 
     return app

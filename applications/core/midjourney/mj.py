@@ -20,26 +20,24 @@ def send_request():
     else:
         print(response.text)
 
-def txt_image_mj(prompt_en):
+def txt_image_mj(prompt_en, taskid):
+    pro = {
+        "prompt": prompt_en,
+        "state": taskid
+    }
+    requests.post(MJ_IMAGE_URL, json=pro)
+
+def image_image_mj(prompt_en, goods_pic, taskid):
     pro = {
         "prompt": prompt_en,
         "base64Array": "",
-        "base64": "",
-        "state": "",
+        "base64": goods_pic,
+        "state": taskid,
         "notifyHook": ""
     }
     response = requests.post(MJ_IMAGE_URL, json=pro)
     print(response)
     pass
 
-def image_image_mj(prompt_en, goods_pic):
-    pro = {
-        "prompt": prompt_en,
-        "base64Array": "",
-        "base64": goods_pic,
-        "state": "",
-        "notifyHook": ""
-    }
-    response = requests.post(MJ_IMAGE_URL, json=pro)
-    print(response)
-    pass
+if __name__ == '__main__':
+    txt_image_mj("a girl", "12345")

@@ -35,8 +35,10 @@ def init_scheduler(app):
                     all_tags = Tag.query.all()
                     second_tags = []
                     third_tag = []
+                    print("所有的标签", all_tags,  type(all_tags))
                     for tag in all_tags:
-                        if tag.get("parent_id") == 1:
+                        print("所有的标签2", tag,  type(tag))
+                        if tag.parent_id == 1:
                             second_tags.append(tag)
                     for j in range(len(second_tags)):
                         id = second_tags[j].get("id")
@@ -49,6 +51,7 @@ def init_scheduler(app):
                     combinations = list(product(*third_tag))
                     # 从数组中随机选择对应的标签数量生成提示词。
                     selected = random.sample(combinations, total)
+                    print("生成的组合", combinations, selected)
                     for sel in selected:
                         # 对提示词进行加工
                         prompt_new, negative_prompt = expand_tag(task.prompt, sel)
@@ -72,25 +75,22 @@ def init_scheduler(app):
                             else:
                                 # 调用sdlt的图生图服务
                                 pic_url = image_image_sdlt(prompt_en, negative_prompt, task.goods_pic)
+                            aigc = Aigc(task_id=task.task_id, prompt_en=prompt_en, prompt_zh=task.prompt,
+                                        neg_prompt=negative_prompt, aigc_url=pic_url)
+                            db.append(aigc)
                         elif task.task_model == Model.MJ.value:
                             # 调用MJ
                             if task.task_type == TaskType.txt2img.value:
                                 # 调用mj的文生图服务
                                 # 对提示词增加权重因子
-                                pic_url = txt_image_mj(prompt_en, negative_prompt)
+                                txt_image_mj(prompt_en, task.task_id)
                             else:
                                 # 调用mj的图生图服务，# 对提示词增加权重因子
                                 pro = expand_tag_weight(prompt_en)
-                                pic_url = image_image_mj(pro, task.goods_pic)
+                                image_image_mj(pro, task.goods_pic)
                             pass
                         else:
                             pass
-
-                        aigc = Aigc(task_id=task.task_id, prompt_en=prompt_en, prompt_zh=task.prompt,
-                                    neg_prompt=negative_prompt, aigc_url=pic_url)
-                        db.append(aigc)
-
-
                 else:
                     # 对提示词进行加工
                     prompt_new, negative_prompt = expand(task.prompt)
@@ -122,13 +122,17 @@ def init_scheduler(app):
 
                     elif task.task_model == Model.MJ.value:
                         # 调用MJ
-                        call_mj(prompt_en)
+                        if task.task_type == TaskType.txt2img.value:
+                            # 调用mj的文生图服务
+                            # 对提示词增加权重因子
+                            txt_image_mj(prompt_en, task.task_id)
+                        else:
+                            # 调用mj的图生图服务，# 对提示词增加权重因子
+                            pro = expand_tag_weight(prompt_en)
+                            image_image_mj(pro, task.goods_pic)
                         pass
                     else:
                         pass
-
-
-
                 # 更新任务状态为completed
                 task.status = TaskStatus.COMPLETED.value
                 task.finish_at = datetime.datetime.now()
@@ -136,8 +140,9 @@ def init_scheduler(app):
 
 
     # 添加任务
-    scheduler.add_job(scheduled_task_with_context, 'interval', seconds=60)
+    scheduler.add_job(scheduled_task_with_context, 'interval', seconds=30)
     scheduler.start()
 
 
 def call_mj():
+    pass
