@@ -21,33 +21,28 @@ def send_request():
     else:
         print(response.text)
 
-def txt_image_mj(prompt_en, taskid):
+def txt_image_mj(prompt_en, state):
     pro = {
         "prompt": prompt_en,
-        "state": taskid
+        "state": state
     }
     response = requests.post(MJ_IMAGE_URL, json=pro)
     print(response)
 
-def image_image_mj(prompt_en, goods_pic, taskid):
+def image_image_mj(prompt_en, goods_pic, state):
     pro = {
         "prompt": prompt_en,
         "base64": goods_pic,
-        "state": taskid,
+        "state": state,
     }
     response = requests.post(MJ_IMAGE_URL, json=pro)
     print(response)
 
-def mj_image_upscale(taskid, index):
+def mj_image_upscale(taskid, index, state):
     pro = {
         "taskId": taskid,
         "action": "UPSCALE",
-        "index": index
+        "index": index,
+        "state": state
     }
-    response = requests.post(MJ_IMAGE_URL, json=pro)
-
-    print(response, response.json().get("imageUrl"))
-
-
-if __name__ == '__main__':
-    txt_image_mj("a girl", "12345")
+    requests.post(MJ_UPSCALE_URL, json=pro)
