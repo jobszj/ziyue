@@ -4,7 +4,6 @@ from applications.view.system.dict import bp as dict_bp
 from applications.view.system.file import bp as file_bp
 from applications.view.system.index import bp as index_bp
 from applications.view.system.log import bp as log_bp
-from applications.view.system.mail import bp as mail_bp
 from applications.view.system.monitor import bp as monitor_bp
 from applications.view.system.passport import bp as passport_bp
 from applications.view.system.power import bp as power_bp
@@ -26,7 +25,6 @@ def register_system_bps(app: Flask):
     system_bp.register_blueprint(power_bp)
     system_bp.register_blueprint(role_bp)
     system_bp.register_blueprint(dict_bp)
-    system_bp.register_blueprint(mail_bp)
     system_bp.register_blueprint(passport_bp)
     system_bp.register_blueprint(right_bp)
     system_bp.register_blueprint(dept_bp)

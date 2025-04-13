@@ -2,11 +2,12 @@ from applications.init import ma
 from marshmallow import fields
 
 
-class PhotoOutSchema(ma.Schema):
+class AigcOutSchema(ma.Schema):
     id = fields.Integer()
-    name = fields.Str()
-    href = fields.Str()
-    mime = fields.Str()
-    size = fields.Str()
-    ext = fields.Str()
-    create_time = fields.DateTime()
+    task_id = fields.Str()
+    sub_task_id = fields.Str()
+    sub_task_tags = fields.Str()
+    aigc_url = fields.Str()
+    prompt_zh = fields.Str()
+    prompt_en = fields.Str()
+    create_at = fields.DateTime()

@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from flask import session, make_response
+from flask import make_response
 
 from applications.common.utils.gen_captcha import vieCode
 

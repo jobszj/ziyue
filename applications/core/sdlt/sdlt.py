@@ -12,7 +12,7 @@ def txt_image_sdlt(prompt, negative_prompt):
     # 调用文生图
     url = LOCAL_API_URL + 'txt2img'
     payload = {
-        "expand": prompt,
+        "prompt": prompt,
         "steps": 20,
         "batch_size": 1,
         "cfg_scale": 7,
@@ -86,7 +86,7 @@ def image_image_sdlt(prompt, negative_prompt, image):
         "n_iter": 1,
         "negative_prompt": negative_prompt,
         "override_settings": {},
-        "expand": prompt,
+        "prompt": prompt,
         "resize_mode": 0,
         "restore_faces": False,
         "s_churn": 0,

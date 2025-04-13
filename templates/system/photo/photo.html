@@ -11,21 +11,6 @@
     </div>
 </div>
 
-<script type="text/html" id="toolbar">
-    {% if authorize("system:file:add") %}
-        <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="add">
-            <i class="layui-icon layui-icon-add-1"></i>
-            新增
-        </button>
-    {% endif %}
-    {% if authorize("system:file:delete") %}
-        <button class="pear-btn pear-btn-sm" lay-event="batchRemove">
-            <i class="layui-icon layui-icon-delete"></i>
-            删除
-        </button>
-    {% endif %}
-</script>
-
 <script type="text/html" id="user-bar">
     {% if authorize("system:file:delete") %}
         <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i
@@ -33,7 +18,7 @@
     {% endif %}
 </script>
 <script type="text/html" id="file-uploadTime">
-    {{ '  {{layui.util.toDateString(d.create_time,  "yyyy-MM-dd HH:mm:ss")}' |safe }}}
+    {{ '  {{layui.util.toDateString(d.create_at,  "yyyy-MM-dd HH:mm:ss")}' |safe }}}
 </script>
 {% include 'system/common/footer.html' %}
 <script>
@@ -55,37 +40,48 @@
           width: 80
         },
         {
-          field: 'name',
-          title: '文件名称',
+          field: 'task_id',
+          title: '任务ID',
+          unresize: true,
+          align: 'center'
+        },
+       {
+          field: 'sub_task_id',
+          title: '子任务ID',
           unresize: true,
           align: 'center'
         },
         {
-          field: 'href',
+          field: 'aigc_url',
           title: '图片',
           unresize: true,
           align: 'center',
           templet: function (d) {
             return '<img class="photo" style="max-width: 100%;\n' +
               '  height: 100%;\n' +
-              '  cursor: pointer;" lay-event="photo" src=" ' + d.href + '"></i>'
+              '  cursor: pointer;" lay-event="photo" src=" ' + d.aigc_url + '"></i>'
           }
-
         },
         {
-          field: 'mime',
-          title: 'mime类型',
+          field: 'sub_task_tags',
+          title: '标签',
           unresize: true,
           align: 'center'
         },
         {
-          field: 'size',
-          title: '文件大小',
+          field: 'prompt_zh',
+          title: '中文提示词',
           unresize: true,
           align: 'center'
         },
         {
-          field: 'create_time',
+          field: 'prompt_en',
+          title: '英文提示词',
+          unresize: true,
+          align: 'center'
+        },
+        {
+          field: 'create_at',
           title: '创建时间',
           templet: '#file-uploadTime',
           unresize: true,
@@ -123,12 +119,8 @@
     })
 
     table.on('toolbar(dataTable)', function (obj) {
-      if (obj.event === 'add') {
-        window.add()
-      } else if (obj.event === 'refresh') {
+      if (obj.event === 'refresh') {
         window.refresh()
-      } else if (obj.event === 'batchRemove') {
-        window.batchRemove(obj)
       }
     })
 
@@ -141,17 +133,6 @@
         height = $(window).height() - 20
       }
       return [width + 'px', height + 'px']
-    }
-
-    window.add = function () {
-      layer.open({
-        type: 2,
-        maxmin: true,
-        title: '新增图片',
-        shade: 0.1,
-        area: screen(),
-        content: 'upload'
-      })
     }
 
     window.remove = function (obj) {
@@ -185,67 +166,18 @@
         })
       })
     }
-
-    window.batchRemove = function (obj) {
-      let data = table.checkStatus(obj.config.id).data
-      if (data.length === 0) {
-        layer.msg('未选中数据', {
-          icon: 3,
-          time: 1000
-        })
-        return false
-      }
-      var ids = []
-      var hasCheck = table.checkStatus('dataTable')
-      var hasCheckData = hasCheck.data
-      if (hasCheckData.length > 0) {
-        $.each(hasCheckData, function (index, element) {
-          ids.push(element.id)
-        })
-      }
-      layer.confirm('确定要删除这些图片', {
-        icon: 3,
-        title: '提示'
-      }, function (index) {
-        layer.close(index)
-        let loading = layer.load()
-        $.ajax({
-          url: "{{ url_for('system.adminFile.batch_remove') }}",
-          data: { ids: ids },
-          dataType: 'json',
-          type: 'POST',
-          success: function (res) {
-            layer.close(loading)
-            if (res.success) {
-              layer.msg(res.msg, {
-                icon: 1,
-                time: 1000
-              }, function () {
-                table.reload('dataTable')
-              })
-            } else {
-              layer.msg(res.msg, {
-                icon: 2,
-                time: 1000
-              })
-            }
-          }
-        })
-      })
-    }
-
     window.refresh = function () {
       table.reload('dataTable')
     }
     // 查看大图
     window.photo = function (obj) {
-      if (!obj.data.href || obj.data.href === '') {
+      if (!obj.data.aigc_url || obj.data.aigc_url === '') {
         layer.msg('图片地址错误！')
         return
       }
       var auto_img = {}
       var img = new Image()
-      img.src = obj.data.href
+      img.src = obj.data.aigc_url
       img.onload = function () {
         var max_height = $(window).height() - 100
         var max_width = $(window).width()
@@ -261,7 +193,7 @@
           area: ['auto'],
           skin: 'layui-layer-nobg', //没有背景色
           shadeClose: true,
-          content: '<img src=\'' + obj.data['href'] + '\' width=\'' + auto_img.width + 'px\' height=\'' + auto_img.height + 'px\'>'
+          content: '<img src=\'' + obj.data['aigc_url'] + '\' width=\'' + auto_img.width + 'px\' height=\'' + auto_img.height + 'px\'>'
         })
       }
     }

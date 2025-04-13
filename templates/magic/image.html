@@ -36,8 +36,8 @@
             <label class="layui-form-label">模型:</label>
             <div class="layui-input-block">
               <select name="model" lay-filter="typeSelect">
-                <option value="SD">SD3.5 large turbo</option>
                 <option value="MJ">midjunery</option>
+                <option value="SD">SD3.5 large turbo</option>
               </select>
             </div>
           </div>
@@ -55,24 +55,12 @@
           </div>
           <div class="layui-form-item">
             <div class="layui-input-block">
-              <button type="button" class="layui-btn " lay-submit lay-filter="generate">生成</button>
+              <button type="button" class="layui-btn" lay-submit lay-filter="generate">生成</button>
             </div>
           </div>
         </div>
       </div>
     </form>
-    <div class="layui-row layui-col-space15">
-      <div class="layui-col-md3">
-        <div class="layui-card">
-          <div class="layui-card-header">
-            <i class="layui-icon layui-icon-upload"></i>
-          </div>
-          <div class="layui-card-body" style="height: 200px; text-align: center; line-height: 200px; border: 1px solid #ccc;">
-            <img src="" alt="" style="max-width: 100%; max-height: 100%;">
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </body>
 {% include 'system/common/footer.html' %}
@@ -81,6 +69,8 @@
         var $ = layui.jquery;
         var form = layui.form;
         var upload = layui.upload;
+        var timer = null; // 定时器
+        var countdown = 5; // 倒计时秒数
         var submitBtn = document.querySelector('button[lay-submit][lay-filter="generate"]');
 
         // 自定义验证规则
@@ -132,8 +122,7 @@
         form.on('submit(generate)', function (data) {
 
             // 禁用按钮
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '生成中...';
+            submitBtn.prop('disabled', true).addClass('layui-btn-disabled')
             // 处理多选框的值1V2U
             {#var multiSelect1Values = [];#}
             {#$('input[name="v"]:checked').each(function () {#}
@@ -164,6 +153,10 @@
                 },
                 error: function () {
                     layer.msg('表单提交失败，请检查网络或接口');
+                },
+                complete: function() {
+                    // 无论成功失败都开始倒计时
+                    startCountdown(submitBtn);
                 }
             });
             return false;
@@ -171,5 +164,23 @@
 
         form.render();
     });
+
+    // 倒计时函数
+    function startCountdown(btn) {
+      var remaining = countdown;
+      btn.text('请等待 ' + remaining + ' 秒');
+
+      timer = setInterval(function() {
+        remaining--;
+        btn.text('请等待 ' + remaining + ' 秒');
+
+        if(remaining <= 0) {
+          clearInterval(timer);
+          btn.prop('disabled', false)
+             .removeClass('layui-btn-disabled')
+             .text('生成');
+        }
+      }, 1000);
+    }
 </script>
 </html>

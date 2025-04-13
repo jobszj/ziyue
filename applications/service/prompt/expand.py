@@ -59,4 +59,4 @@ def expand_tag(prompt, tags):
     return re_prompt, negative_prompt
 
 def expand_tag_weight(prop):
-    return prop + " " + "--iw" + " " + "1.6"
+    return prop + " " + "--iw" + " " + "1.2"

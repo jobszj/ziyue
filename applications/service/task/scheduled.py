@@ -12,7 +12,7 @@ from applications.core.midjourney.mj import txt_image_mj, image_image_mj
 from applications.core.sdlt.sdlt import txt_image_sdlt, image_image_sdlt
 from applications.init import db
 from applications.models import Tasks, Aigc, Tag
-from applications.service.expand.expand import expand, expand_tag, expand_tag_weight
+from applications.service.prompt.expand import expand, expand_tag, expand_tag_weight
 
 # 初始化调度器
 def init_scheduler(app):
@@ -22,7 +22,10 @@ def init_scheduler(app):
     def scheduled_task_with_context():
         with app.app_context():
             # 从数据库MYSQL中查询任务
-            tasks = Tasks.query.filter(Tasks.status == TaskStatus.PENDING.value).all()
+            tasks = Tasks.query.filter(Tasks.status == TaskStatus.PENDING.value).first()
+            if tasks is None:  # 检查是否为None
+                print("Tasks is None, skipping iteration.")
+                return
             for task in tasks:
                 # 更新任务状态为running
                 task.status = TaskStatus.RUNNING.value
@@ -118,10 +121,9 @@ def init_scheduler(app):
                     }
                     p = asyncio.run(model_manager.process_request(body))
                     prompt_en = p.get("choices")[0].get("message").get("content")
-                    print("获取的提示词", p, prompt_en)
                     # 生成一个随机数4位
                     index = str(random.randint(10000, 99999))
-                    sub_task_id = str(task.task_id) + "-" + index + "-" + "1"
+                    sub_task_id = str(task.task_id) + "-" + index
                     state = task.task_id + "%" + sub_task_id
                     # 调用生成图片服务
                     if task.task_model == Model.SD.value:
@@ -149,13 +151,19 @@ def init_scheduler(app):
                             pro = expand_tag_weight(prompt_en)
                             pic = convert_url_to_data_url(task.goods_pic)
                             image_image_mj(pro, pic, state)
+
+                        aigc111 = Aigc(task_id=task.task_id, sub_task_id=sub_task_id + "-" + "1",
+                                      prompt_en=prompt_en, prompt_zh=prompt_new, neg_prompt=negative_prompt)
+                        aigc222 = Aigc(task_id=task.task_id, sub_task_id=sub_task_id + "-" + "2",
+                                      prompt_en=prompt_en, prompt_zh=prompt_new, neg_prompt=negative_prompt)
+                        aigc333 = Aigc(task_id=task.task_id, sub_task_id=sub_task_id + "-" + "3",
+                                      prompt_en=prompt_en, prompt_zh=prompt_new, neg_prompt=negative_prompt)
+                        aigc444 = Aigc(task_id=task.task_id, sub_task_id=sub_task_id + "-" + "4",
+                                      prompt_en=prompt_en, prompt_zh=prompt_new, neg_prompt=negative_prompt)
+                        db.session.add_all([aigc111, aigc222, aigc333, aigc444])
+                        db.session.commit()
                     else:
                         pass
-                    # mj是四张照片，所以一次需要插入四条数据
-                    aigc2 = Aigc(task_id=task.task_id, sub_task_id=sub_task_id,
-                                 prompt_en=prompt_en, prompt_zh=prompt_new, neg_prompt=negative_prompt)
-                    db.session.add(aigc2)
-                    db.session.commit()
                 # 更新任务状态为completed
                 task.status = TaskStatus.COMPLETED.value
                 task.finish_at = datetime.datetime.now()
@@ -163,6 +171,6 @@ def init_scheduler(app):
 
 
     # 添加任务
-    scheduler.add_job(scheduled_task_with_context, 'interval', seconds=30)
+    scheduler.add_job(scheduled_task_with_context, 'interval', seconds=180)
     scheduler.start()
 

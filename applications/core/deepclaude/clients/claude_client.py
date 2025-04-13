@@ -58,7 +58,7 @@ class ClaudeClient(BaseClient):
                 "X-Title": "DeepClaude",  # OpenRouter 需要
             }
 
-            # 传递 OpenRouterOneAPI system expand
+            # 传递 OpenRouterOneAPI system prompt
             if system_prompt:
                 messages.insert(0, {"role": "system", "content": system_prompt})
 
@@ -80,7 +80,7 @@ class ClaudeClient(BaseClient):
                 "Content-Type": "application/json",
             }
 
-            # 传递 OneAPI system expand
+            # 传递 OneAPI system prompt
             if system_prompt:
                 messages.insert(0, {"role": "system", "content": system_prompt})
 

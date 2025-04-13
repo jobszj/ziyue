@@ -876,7 +876,7 @@
 					if(item.hasClass(DISABLED) || item.hasClass(THIS)){
 												
 					}else{
-						item.find('i:not(.icon-expand)').click();
+						item.find('i:not(.icon-prompt)').click();
 					}
 				});
 				return false;
@@ -902,7 +902,7 @@
 			let treeId = dd.attr('tree-id');
 			if(treeId){
 				//忽略右边的图标
-				if(othis.is('i:not(.icon-expand)')){
+				if(othis.is('i:not(.icon-prompt)')){
 					this.handlerLabel(id, dd, !dd.hasClass(THIS));
 					return false;
 				}
@@ -965,7 +965,7 @@
 		let treeId = dd.attr('tree-id');
 		let childrens = dd.nextAll(`dd[tree-id^="${treeId}"]`);
 		if(childrens.length){
-			dd.append('<i class="xm-iconfont icon-expand"></i>');		
+			dd.append('<i class="xm-iconfont icon-prompt"></i>');
 			dd.attr('xm-tree-hidn', len);
 			childrens.each((index, item) => {
 				let that = $(item);

@@ -173,19 +173,19 @@ _p[0] = {
          * @example
          *
          * ```js
-         * var expand = new kity.Animator({
+         * var prompt = new kity.Animator({
          *     beginValue: function(target) {
          *         return target.getBox();
          *     },
          *     finishValue: function(target) {
-         *         return target.getBox().expand(100, 100, 100, 100);
+         *         return target.getBox().prompt(100, 100, 100, 100);
          *     },
          *     setter: function(target, value) {
          *         target.setBox(value)
          *     }
          * });
          *
-         * var timeline = expand.create(rect, 300);
+         * var timeline = prompt.create(rect, 300);
          * timeline.repeat(3).play();
          * ```
          */
@@ -239,7 +239,7 @@ _p[0] = {
          *
          * ```js
          * rect.animate(turnRed, 300); // turnRect 是一个动画器
-         * rect.animate(expand, 500);  // turnRect 播放结束后播放 expand
+         * rect.animate(prompt, 500);  // turnRect 播放结束后播放 prompt
          * ```
          */
             animate: function(animator, duration, easing, delay, callback) {
@@ -3245,9 +3245,9 @@ _p[25] = {
          *
          * ```js
          * var box = new kity.Box(10, 10, 20, 20);
-         * var box1 = box.expand(10); // [0, 0, 40, 40]
-         * var box2 = box.expand(10, 20); // [0, -10, 40, 60]
-         * var box3 = box.expand(1, 2, 3, 4); // [9, 8, 24, 26]
+         * var box1 = box.prompt(10); // [0, 0, 40, 40]
+         * var box2 = box.prompt(10, 20); // [0, -10, 40, 60]
+         * var box3 = box.prompt(1, 2, 3, 4); // [9, 8, 24, 26]
          * ```
          */
             expand: function(top, right, bottom, left) {

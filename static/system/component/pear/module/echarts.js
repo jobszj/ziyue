@@ -33684,7 +33684,7 @@
         this._intervalPrecision = getIntervalPrecision(interval);
       };
       /**
-       * @param expandToNicedExtent Whether expand the ticks to niced extent.
+       * @param expandToNicedExtent Whether prompt the ticks to niced extent.
        */
 
 
@@ -33834,7 +33834,7 @@
       };
 
       IntervalScale.prototype.calcNiceExtent = function (opt) {
-        var extent = this._extent; // If extent start and end are same, expand them
+        var extent = this._extent; // If extent start and end are same, prompt them
 
         if (extent[0] === extent[1]) {
           if (extent[0] !== 0) {
@@ -33843,7 +33843,7 @@
             //      Axis has been fixed max 100
             //      Plus data are all 100 and axis extent are [100, 100].
             // Extend to the both side will cause expanded max is larger than fixed max.
-            // So only expand to the smaller side.
+            // So only prompt to the smaller side.
 
             if (!opt.fixMax) {
               extent[1] += expandSize / 2;
@@ -34458,7 +34458,7 @@
       };
 
       TimeScale.prototype.calcNiceExtent = function (opt) {
-        var extent = this._extent; // If extent start and end are same, expand them
+        var extent = this._extent; // If extent start and end are same, prompt them
 
         if (extent[0] === extent[1]) {
           // Expand extent
@@ -34948,7 +34948,7 @@
         return _this;
       }
       /**
-       * @param Whether expand the ticks to niced extent.
+       * @param Whether prompt the ticks to niced extent.
        */
 
 
@@ -47337,14 +47337,14 @@
         // User set min, max, divide to get new interval
         interval = (max - min) / alignToSplitNumber;
       } else if (isMinFixed) {
-        max = rawExtent[0] + interval * alignToSplitNumber; // User set min, expand extent on the other side
+        max = rawExtent[0] + interval * alignToSplitNumber; // User set min, prompt extent on the other side
 
         while (max < rawExtent[1] && isFinite(max) && isFinite(rawExtent[1])) {
           interval = increaseInterval(interval);
           max = rawExtent[0] + interval * alignToSplitNumber;
         }
       } else if (isMaxFixed) {
-        // User set max, expand extent on the other side
+        // User set max, prompt extent on the other side
         min = rawExtent[1] - interval * alignToSplitNumber;
 
         while (min > rawExtent[0] && isFinite(min) && isFinite(rawExtent[0])) {
@@ -54864,7 +54864,7 @@
       }
 
       var sourceSymbolEl = data.getItemGraphicEl(source.dataIndex);
-      var sourceEdge = sourceSymbolEl.__edge; // 1. when expand the sub tree, delete the children node should delete the edge of
+      var sourceEdge = sourceSymbolEl.__edge; // 1. when prompt the sub tree, delete the children node should delete the edge of
       // the source at the same time. because the polyline edge shape is only owned by the source.
       // 2.when the node is the only children of the source, delete the node should delete the edge of
       // the source at the same time. the same reason as above.
@@ -63961,7 +63961,7 @@
             behavior: 'none',
             axisExpandWindow: axisExpandWindow
           };
-        } // Conver the point from global to expand coordinates.
+        } // Conver the point from global to prompt coordinates.
 
 
         var pointCoord = point[pixelDimIndex] - layoutInfo.layoutBase - layoutInfo.axisExpandWindow0Pos; // For dragging operation convenience, the window should not be

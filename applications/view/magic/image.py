@@ -44,12 +44,10 @@ def notify():
             time.sleep(1)
     elif (progress == "100%" and action == "UPSCALE"):
         sub_task_id = state.split("%")[1]
-        index =
-        sub_id = sub_task_id + "-" + str(index)
         img = req_json.get("imageUrl")
         # 将图片上传至七牛云
         res_img = upload_image_to_qiniu_by_url(img, 'mj')
-        tu = {"res_img": res_img, "sub_task_id": sub_id}
+        tu = {"res_img": res_img, "sub_task_id": sub_task_id}
         print("放大的图片", img, res_img, tu)
 
         db.session.execute(

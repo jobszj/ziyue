@@ -20,8 +20,6 @@ def main():
 def data():
     try:
         tasks = Tasks.query.order_by(desc(Tasks.create_at)).all()
-
-        print(tasks)
         return table_api(data=TaskSchema(many=True).dump(tasks))
     except Exception as e:
         print(e)
