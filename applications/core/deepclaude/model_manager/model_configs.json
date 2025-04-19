@@ -13,8 +13,8 @@
     "target_models": {
         "Gemini/Gemini-2.0-Pro": {
             "model_id": "gemini-2.5-pro-exp-03-25",
-            "api_key": "sk-iMLD1ERAjXi7pjRXBfzabdDcQlTnVmx583ZhKnBeeherVaTN",
-            "api_base_url": "https://www.dmxapi.com",
+            "api_key": "sk-R2ZImE064EXxP1LuLDpiZyIWkqGKI70B1iWsw6Mk8xU25x8C",
+            "api_base_url": "https://www.dmxapi.cn",
             "api_request_address": "v1/chat/completions",
             "model_format": "openai",
             "is_valid": true,

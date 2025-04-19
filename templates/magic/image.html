@@ -71,7 +71,7 @@
         var upload = layui.upload;
         var timer = null; // 定时器
         var countdown = 5; // 倒计时秒数
-        var submitBtn = document.querySelector('button[lay-submit][lay-filter="generate"]');
+
 
         // 自定义验证规则
         form.verify({
@@ -81,17 +81,6 @@
                 }
             }
         });
-
-        // 监听下拉框选择事件
-        {#form.on('select(typeSelect)', function (data) {#}
-        {#    var value = data.value;#}
-        {#    // 隐藏所有相关字段#}
-        {#    $('.option1-field, .option2-field').hide();#}
-        {#    if (value === 'MD') {#}
-        {#        $('.option1-field').show();#}
-        {#        $('.option2-field').show();#}
-        {#    }#}
-        {# });#}
 
         // 执行上传实例
         upload.render({
@@ -120,23 +109,9 @@
         // 表单提交
         // 监听表单提交事件
         form.on('submit(generate)', function (data) {
-
-            // 禁用按钮
-            submitBtn.prop('disabled', true).addClass('layui-btn-disabled')
-            // 处理多选框的值1V2U
-            {#var multiSelect1Values = [];#}
-            {#$('input[name="v"]:checked').each(function () {#}
-            {#    multiSelect1Values.push($(this).val());#}
-            {# });#}
-            {#data.field.v = multiSelect1Values;#}
-            {##}
-            {#var multiSelect2Values = [];#}
-            {#$('input[name="u"]:checked').each(function () {#}
-            {#    multiSelect2Values.push($(this).val());#}
-            {# });#}
-            {#data.field.u = multiSelect2Values;#}
-            {#console.log(data.field);#}
-            // 这里可以添加 AJAX 请求将数据提交到后端
+            var submitBtn = $('button[lay-submit]');
+            submitBtn.prop('disabled', true)
+                 .addClass('layui-btn-disabled')
             $.ajax({
                 url: '/magic/image/generate',
                 type: 'POST',
@@ -144,12 +119,7 @@
                 dataType: 'json',
                 data: JSON.stringify(data.field),
                 success: function (res) {
-                    if (res.code === 0) {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '生成';
-                    } else {
-                        layer.msg(res.msg);
-                    }
+                    layer.msg(res.msg);
                 },
                 error: function () {
                     layer.msg('表单提交失败，请检查网络或接口');
@@ -162,25 +132,27 @@
             return false;
         });
 
+        // 倒计时函数
+        function startCountdown(btn) {
+          var remaining = countdown;
+          btn.text('请等待 ' + remaining + ' 秒');
+
+          timer = setInterval(function() {
+            remaining--;
+            btn.text('请等待 ' + remaining + ' 秒');
+
+            if(remaining <= 0) {
+              clearInterval(timer);
+              btn.prop('disabled', false)
+                 .removeClass('layui-btn-disabled')
+                 .text('生成');
+            }
+          }, 1000);
+        }
+
         form.render();
     });
 
-    // 倒计时函数
-    function startCountdown(btn) {
-      var remaining = countdown;
-      btn.text('请等待 ' + remaining + ' 秒');
 
-      timer = setInterval(function() {
-        remaining--;
-        btn.text('请等待 ' + remaining + ' 秒');
-
-        if(remaining <= 0) {
-          clearInterval(timer);
-          btn.prop('disabled', false)
-             .removeClass('layui-btn-disabled')
-             .text('生成');
-        }
-      }, 1000);
-    }
 </script>
 </html>

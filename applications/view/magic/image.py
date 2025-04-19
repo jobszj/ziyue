@@ -23,7 +23,7 @@ def main():
 def image_generate():
     req_json = request.get_json(force=True)
     # 创建任务并将任务放到MYSQL中
-    generate_task(req_json)
+    # generate_task(req_json)
     return table_api(msg="生成图片中")
 
 @bp.route('/notify', methods=['POST'])
